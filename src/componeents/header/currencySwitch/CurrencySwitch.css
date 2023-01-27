@@ -23,4 +23,5 @@
 
 .currencies-list-item:hover {
     background: #EEEEEE;
+    cursor: pointer;
 }

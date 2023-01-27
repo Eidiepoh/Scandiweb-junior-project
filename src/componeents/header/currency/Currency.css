@@ -1,0 +1,24 @@
+.currency-container {
+    width: 38px;
+    height: 29px;
+}
+
+.currency {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-end;
+    gap: 10px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 160%;
+}
+
+.currency:hover {
+    cursor: pointer;
+}
+
+
+
+.currency-arrow {
+    padding-bottom: 2px;
+}
