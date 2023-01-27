@@ -1,0 +1,26 @@
+.currencies-list {
+    width: 114px;
+    background: #FFFFFF;
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 5px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.currencies-list-item {
+    height: 45px;
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 5px;
+    justify-content: baseline;
+    padding: 8px 0 8px 20px;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 160%;
+    color: #1D1F22;
+}
+
+.currencies-list-item:hover {
+    background: #EEEEEE;
+}

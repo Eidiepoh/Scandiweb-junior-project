@@ -1,0 +1,25 @@
+.navbar-list {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.navbar-list-item {
+    list-style: none;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 120%;
+    padding-top: 28px;
+}
+
+.navbar-list-item-link {
+    text-decoration: none;
+    color: #1D1F22;
+    border-bottom: transparent solid 2px;
+    padding: 32px;
+}
+
+.navbar-list-item-link.active {
+    color: #5ECE7B;
+    border-color: #5ECE7B;
+    font-weight: 600;
+}
