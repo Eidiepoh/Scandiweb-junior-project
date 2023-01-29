@@ -24,6 +24,7 @@ componentDidUpdate() {
 }
 
     render () {
+        
         return (
             <div className="product-container">
             {this.props.product.inStock || 
@@ -41,14 +42,16 @@ componentDidUpdate() {
                             <div className="product-container-list-item-description-name">
                                 {this.props.product.name}
                             </div>
-                            <div className="product-container-list-item-description-price">                        
-                                {this.state.price.symbol}
-                                {this.state.price.amount}
+                            <div className="product-container-list-item-description-price"> 
+                                    {this.state.price.symbol}
+                                    {this.state.price.amount}
+                                
                             </div>
                         </div>
                     </li>
                 </ul>
             </div>
+
         )
     }
 }

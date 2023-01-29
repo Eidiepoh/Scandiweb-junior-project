@@ -26,13 +26,11 @@ class Navbar extends React.Component {
                             <ul className="navbar-list">
                             {data.categories.map(({name}) => 
                             <li className="navbar-list-item" key={name}>
-                            <NavLink
-                            className="navbar-list-item-link" 
-                            to={{
-                                pathname:`/${name}`,
-                                state: {title: name} 
-                              }}
-                            >{name.toUpperCase()}</NavLink></li>
+                                <NavLink className="navbar-list-item-link" 
+                                to={`/${name}`}>
+                                    {name.toUpperCase()}
+                                </NavLink>
+                            </li>
                             )}
                             </ul>
                         )
