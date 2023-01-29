@@ -1,9 +1,8 @@
 import React from 'react';
 import './Navbar.css';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { gql } from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
-import CurrencySwitch from '../currencySwitch/CurrencySwitch';
 
 const GET_NAVBAR_CATEGORIES = gql`
     {
@@ -12,11 +11,12 @@ const GET_NAVBAR_CATEGORIES = gql`
     }
   }
 `;
+
 class Navbar extends React.Component {
     
     render() {
         return(
-            <div>
+            <div className="navbar">
                 <Query query={GET_NAVBAR_CATEGORIES}>
                 {({data, loading, error}) => {
                     if(loading) return null
@@ -39,8 +39,6 @@ class Navbar extends React.Component {
                     }
                 }}
             </Query>
-           <img src={require("../../../assets/images/Home-logo.png")} alt="home-icon"/>
-           <CurrencySwitch/>
             </div>
         )
     }

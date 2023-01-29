@@ -6,3 +6,11 @@
   box-sizing: border-box;
   font-family: 'Raleway', sans-serif;
 }
+
+.app-container {
+  margin-left: 100px;
+  margin-right: 100px;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 80px;
+}

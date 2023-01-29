@@ -1,8 +1,9 @@
 import React from 'react';
 import './CurrencySwitch.css';
-import { Link, NavLink } from 'react-router-dom';
 import { gql } from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
+import { setCurrency } from '../../../redux/slices/currencySlice';
+import { connect } from 'react-redux';
 
 const GET_CURRENCIES = gql `
     {
@@ -14,14 +15,6 @@ const GET_CURRENCIES = gql `
 `;
 
 class CurrencySwitch extends React.Component {
-    state = {
-        currentCurrency : ''
-    }
-
-    componentDidUpdate () {
-        console.log(this.state.currentCurrency)
-    }
-    
     render() {
         return(
             <Query query={GET_CURRENCIES}>
@@ -33,8 +26,7 @@ class CurrencySwitch extends React.Component {
                         <ul className="currencies-list">
                         {data.currencies.map(({label, symbol}) => 
                         <li className="currencies-list-item" key={label}
-                        onClick={()=> this.setState({currentCurrency : symbol})}
-                        >
+                        onClick={() => this.props.setCurrency(symbol)}>
                             <span>{symbol}</span>
                             <span>{label}</span>
                         </li>
@@ -48,4 +40,6 @@ class CurrencySwitch extends React.Component {
     }
 }
 
-export default CurrencySwitch;
+const mapDispatchToProps = { setCurrency }
+
+export default connect(null, mapDispatchToProps)(CurrencySwitch);

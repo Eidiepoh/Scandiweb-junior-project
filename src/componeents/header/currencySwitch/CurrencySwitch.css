@@ -6,6 +6,8 @@
     gap: 5px;
     padding-top: 7px;
     padding-bottom: 7px;
+    position: absolute;
+    z-index: 3;
 }
 
 .currencies-list-item {

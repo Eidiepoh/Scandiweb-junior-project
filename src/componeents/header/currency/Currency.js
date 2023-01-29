@@ -1,6 +1,8 @@
 import React from 'react';
 import './Currency.css';
 import CurrencySwitch from '../currencySwitch/CurrencySwitch';
+import { connect } from 'react-redux';
+import { setCurrency } from '../../../redux/slices/currencySlice';
 
 class Currency extends React.Component {
     constructor(props) {
@@ -8,6 +10,8 @@ class Currency extends React.Component {
         this.state = { showList: false };
         this.listRef = React.createRef();
       }
+      state = { showList: false };
+      listRef = React.createRef();
 
       handleClickOutside = event => {
         if (this.listRef.current && !this.listRef.current.contains(event.target)) {
@@ -15,23 +19,24 @@ class Currency extends React.Component {
         }
       }
     
-      componentDidMount() {
+    componentDidMount() {
         document.addEventListener('mousedown', this.handleClickOutside);
-      }
+    }
     
-      componentWillUnmount() {
+    componentWillUnmount() {
         document.removeEventListener('mousedown', this.handleClickOutside);
-      }
+    }
 
     toggleList = () => {
         this.setState({showList : !this.state.showList})
     }
     
     render() {
+
         return(
             <div className="currency-container">
-                <div className="currency" onClick={this.toggleList} ref={this.listRef}>
-                    <span>{'$'}</span>
+                <div className="currency" onClick={this.toggleList} >
+                    <span>{this.props.currency}</span>
                     <span hidden={!this.state.showList}>
                         <img className='currency-arrow'
                         src={require("../../../assets/images/Arrow-down.png")} alt="up arrow"/>
@@ -43,8 +48,9 @@ class Currency extends React.Component {
                 </div>
                 
                 {this.state.showList && 
-                    <div  
-                    className="header-currency-switch">
+                    <div className="header-currency-switch" 
+                    onClick={this.toggleList}
+                    ref={this.listRef}>
                         <CurrencySwitch/>
                     </div>
                 }
@@ -53,4 +59,9 @@ class Currency extends React.Component {
     }
 }
 
-export default Currency;
+const mapStateToProps = state => {
+    return state.currency;
+  }
+const mapDispatchToProps = { setCurrency }
+
+export default connect(mapStateToProps,mapDispatchToProps)(Currency);

@@ -1,0 +1,12 @@
+.header-container {
+    height: 80px;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.home-icon {
+    position: relative;
+    top: 10px;
+}

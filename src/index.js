@@ -2,8 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { ApolloClient, InMemoryCache, ApolloProvider, gql } from '@apollo/client';
-import {BrowserRouter} from 'react-router-dom';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import { Provider} from 'react-redux';
+import store from './redux/store';
+import { BrowserRouter } from 'react-router-dom';
+
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000/',
@@ -13,8 +16,10 @@ const client = new ApolloClient({
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-    <ApolloProvider client={client}>
-      <App/>
-    </ApolloProvider>
-  </BrowserRouter>
+    <Provider store={store}>
+        <ApolloProvider client={client}>
+          <App/>
+        </ApolloProvider>
+      </Provider>
+      </BrowserRouter>
 );
