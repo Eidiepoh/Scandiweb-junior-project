@@ -15,7 +15,6 @@ class ProductListPage extends React.Component {
 
     render () {
         const { match } = this.props;
-
         if(!match.params.category) {
             return(
                 <Query query={GET_NAVBAR_CATEGORIES}>

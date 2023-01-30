@@ -4,7 +4,7 @@ import { withRouter } from 'react-router-dom';
 class ProductDescriptionPage extends React.Component {
     render() {
         const { match } = this.props;
-        console.log(match.params);
+        console.log(match);
         return(
             <div>testuy</div>
         )

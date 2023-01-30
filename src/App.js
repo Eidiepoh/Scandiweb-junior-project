@@ -13,14 +13,19 @@ class App extends React.Component {
       <div className="app-container">
         <Header/>
         <Switch>
-        <Route path="/:category">
-            <ProductListPage/>
+        <Route  path="/:category/:id" >
+          <ProductDescriptionPage/>
         </Route>
+        <Route   path="/:category" >
+        <ProductListPage/>
+        </Route>
+       
+
+       
+
             
           
-          <Route path="/product/:id">
-            <ProductDescriptionPage/>
-          </Route>
+
 
         </Switch>
     </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import './ProductCard.css';
 
 class ProductCard extends React.Component {
@@ -24,7 +25,8 @@ componentDidUpdate() {
 }
 
     render () {
-        
+        const { match } = this.props;
+        console.log('productCard',match)
         return (
             <div className="product-container">
             {this.props.product.inStock || 
@@ -60,4 +62,6 @@ const mapStateToProps = state => {
     return state.currency;
   }
 
-export default connect(mapStateToProps)(ProductCard);
+const componentWithRouter = withRouter(ProductCard)
+
+export default connect(mapStateToProps)(componentWithRouter);
