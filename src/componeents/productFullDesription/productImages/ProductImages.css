@@ -1,0 +1,27 @@
+.product-description-images {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 40px;
+    align-items: flex-start;
+}
+.product-description-images-list-container {
+    width: 100px;
+}
+.product-description-images-list {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 40px;
+    list-style: none;
+    height: 511px;
+    overflow: scroll;
+}
+
+.product-description-images-list-item img{
+    width: 79px;
+    height: 80px;
+}
+
+.product-description-images-main img{
+    width: 610px;
+    height: 511px;
+}

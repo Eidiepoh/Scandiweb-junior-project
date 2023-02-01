@@ -1,32 +1,11 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import './ProductCard.css';
+import { connect } from 'react-redux';
+import ProductPrice from '../product-price/ProductPrice';
 
 class ProductCard extends React.Component {
 
-state = {
-    price : {
-        symbol : '',
-        amount : 0
-    }
-}
-
-componentDidMount() {
-    const currentProductPrice = this.props.product.prices.filter(price => price.currency.symbol === this.props.currency)[0];
-    this.setState({price : {symbol : this.props.currency, amount : currentProductPrice.amount}})
-}
-
-componentDidUpdate() {
-    if(this.props.currency !== this.state.price.symbol) {
-        const currentProductPrice = this.props.product.prices.filter(price => price.currency.symbol === this.props.currency)[0];
-        this.setState({price : {symbol : currentProductPrice.currency.symbol ,amount : currentProductPrice.amount}})
-    }
-}
-
     render () {
-        const { match } = this.props;
-        console.log('productCard',match)
         return (
             <div className="product-container">
             {this.props.product.inStock || 
@@ -45,9 +24,7 @@ componentDidUpdate() {
                                 {this.props.product.name}
                             </div>
                             <div className="product-container-list-item-description-price"> 
-                                    {this.state.price.symbol}
-                                    {this.state.price.amount}
-                                
+                                <ProductPrice prices={this.props.product.prices}/>
                             </div>
                         </div>
                     </li>
@@ -62,6 +39,4 @@ const mapStateToProps = state => {
     return state.currency;
   }
 
-const componentWithRouter = withRouter(ProductCard)
-
-export default connect(mapStateToProps)(componentWithRouter);
+export default connect(mapStateToProps)(ProductCard);

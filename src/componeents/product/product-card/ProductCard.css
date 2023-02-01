@@ -35,13 +35,6 @@
     left:0;
 }
 
-.product-container-list-item-description-price {
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 160%;
-    color: #1d1f22
-}
-
 .not-inStock-layout {
     background: #FFFFFF;
     opacity: 0.5;
@@ -60,4 +53,8 @@
     position: relative;
     text-align: center;
     top: 50%;
+}
+
+.product-container-list-item-description-price {
+    font-size: 9px;
 }

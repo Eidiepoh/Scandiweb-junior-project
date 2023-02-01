@@ -1,0 +1,28 @@
+.product-headings {
+    display: flex;
+    flex-flow: column nowrap;
+}
+
+.product-headings.large {
+    gap: 16px;
+}
+
+.product-headings-brand.large {
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 27px;
+}
+
+.product-headings-brand.mini {
+    line-height: 26px;
+}
+
+.product-headings-name.large {
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 27px;
+}
+
+.product-headings-name.mini {
+    line-height: 26px;
+}

@@ -5,6 +5,13 @@
   margin: 0;
   box-sizing: border-box;
   font-family: 'Raleway', sans-serif;
+  font-size: 16px;
+  font-weight: 300;
+  color:#1D1F22;
+}
+
+a {
+  text-decoration: none;
 }
 
 .app-container {

@@ -4,12 +4,11 @@ import { gql } from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
 import './ProductCardList.css';
 import { Link } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
-
 
 const GET_PRODUCT_BY_TYPE = gql`
 query getProducts($category : CategoryInput){
     category(input: $category){
+        name
         products {
          name
          gallery
@@ -27,13 +26,9 @@ query getProducts($category : CategoryInput){
 }
 `;
 
-
 class ProductCardList extends React.Component {
 
-
     render () {
-        const { match } = this.props;
-        console.log('LIIIST',match)
         return (
             <Query query={GET_PRODUCT_BY_TYPE} variables={{category: {title: this.props.productType}}}>
                 {({data, loading, error}) => {
@@ -43,13 +38,11 @@ class ProductCardList extends React.Component {
                         return(
                             <ul className="product-card-list">
                             {data.category.products.map(item =>
-                            
-                                <li >
-                                    <Link   key={item.id+1} to={`${match.url}/${item.id}`}>
-                                    <ProductCard product={item}/>
+                                <li key={item.id} >
+                                    <Link to={`${data.category.name}/${item.id}`}>
+                                        <ProductCard product={item}/>
                                     </Link>
                                 </li>
-                            
                             ) 
                         }
                         </ul>
@@ -61,4 +54,4 @@ class ProductCardList extends React.Component {
     }
 }
 
-export default withRouter(ProductCardList);
+export default ProductCardList;

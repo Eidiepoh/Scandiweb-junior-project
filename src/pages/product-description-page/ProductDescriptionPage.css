@@ -1,0 +1,5 @@
+.product-description-page {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 100px;
+}

@@ -2,7 +2,6 @@ import React from 'react';
 import './Currency.css';
 import CurrencySwitch from '../currencySwitch/CurrencySwitch';
 import { connect } from 'react-redux';
-import { setCurrency } from '../../../redux/slices/currencySlice';
 
 class Currency extends React.Component {
     constructor(props) {
@@ -62,6 +61,5 @@ class Currency extends React.Component {
 const mapStateToProps = state => {
     return state.currency;
   }
-const mapDispatchToProps = { setCurrency }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Currency);
+export default connect(mapStateToProps)(Currency);
