@@ -1,0 +1,14 @@
+.cart-page-list {
+    list-style: none;
+    display: flex;
+    flex-flow: column nowrap;
+    font-size: 40px;
+}
+
+.cart-page-list.large {
+    gap: 30px;
+}
+
+.cart-page-list.mini {
+    gap: 40px;
+}

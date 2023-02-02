@@ -43,7 +43,7 @@
 .attribute-list-item.mini {
     font-size: 14px;
     line-height: 22px;
-    width: 24px;
+    min-width: 24px;
     height: 24px;
 }
 
@@ -52,11 +52,16 @@
     height: 32px;
 }
 
+.attribute-list-color.mini {
+    width: 16px;
+    height: 16px;
+}
+
 .attribute-list li {
     cursor: pointer;
 }
 
-.attribute-highlighted {
+.attribute-highlighted div{
     color: #FFFFFF;
     background: #1D1F22;
     border: 1px solid #1D1F22;
@@ -67,3 +72,4 @@
     padding: 1px;
     margin-top: -2px;
 }
+

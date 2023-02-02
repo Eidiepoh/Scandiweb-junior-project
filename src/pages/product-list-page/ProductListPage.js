@@ -11,11 +11,12 @@ const GET_NAVBAR_CATEGORIES = gql`
     }
   }
 `;
+
 class ProductListPage extends React.Component {
 
     render () {
         const { match } = this.props;
-        if(!match.params.category) {
+        if(!match.params.name) {
             return(
                 <Query query={GET_NAVBAR_CATEGORIES}>
                     {({data, loading, error}) => {
@@ -27,7 +28,7 @@ class ProductListPage extends React.Component {
                 </Query>
             )
         } else {
-            return    <ProductCardList productType={match.params.category}/>
+            return    <ProductCardList productType={match.params.name}/>
         }
 
     }

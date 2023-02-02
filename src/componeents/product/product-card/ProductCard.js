@@ -1,6 +1,5 @@
 import React from 'react';
 import './ProductCard.css';
-import { connect } from 'react-redux';
 import ProductPrice from '../product-price/ProductPrice';
 
 class ProductCard extends React.Component {
@@ -35,8 +34,4 @@ class ProductCard extends React.Component {
     }
 }
 
-const mapStateToProps = state => {
-    return state.currency;
-  }
-
-export default connect(mapStateToProps)(ProductCard);
+export default ProductCard;

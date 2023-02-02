@@ -1,7 +1,7 @@
 import  { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    cartData : []
+    cartData : JSON.parse(localStorage.getItem('cart')) || []
 }
 
 const cartSlice = createSlice({
@@ -11,12 +11,11 @@ const cartSlice = createSlice({
       setCart:  (state, action) => {
         let isDuplicated;
         let temp;
-      const duplicateCheck = state.cartData.filter(item => item.id === action.payload.id)
-      if(duplicateCheck.length >= 1 ) {
-        for(let attr of duplicateCheck) {
+        const duplicateCheck = state.cartData.filter(item => item.id === action.payload.id)
+        if(duplicateCheck.length >= 1 ) {
+         for(let attr of duplicateCheck) {
           temp =  JSON.stringify(attr.attributes) === JSON.stringify(action.payload.attributes);
           if(temp === true) isDuplicated = temp;
-
         }
         if(isDuplicated) {
           state.cartData.filter((item, index) => {
@@ -30,6 +29,7 @@ const cartSlice = createSlice({
       } else {
         state.cartData.push(action.payload);
       }
+      localStorage.setItem('cart',JSON.stringify(state.cartData));
       }
     }
   })

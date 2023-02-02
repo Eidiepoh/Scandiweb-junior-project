@@ -39,8 +39,6 @@ query Product($id: String!) {
   }
 `;
 
-
-
 class ProductDescriptionPage extends React.Component {
 
     handleData = (data) => {
@@ -49,7 +47,6 @@ class ProductDescriptionPage extends React.Component {
 
     render() {
         const { match } = this.props;
-        console.log(this.props.cartData)
         return(
             <Query query={GET_PRODUCT_BY_ID} variables={{id: match.params.id}}>
                 {({data, loading, error}) => {

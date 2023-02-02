@@ -11,7 +11,7 @@ class ProductDetails extends React.Component {
             prices : '',
             id : '',
             attributes : {},
-            quantity : 0,
+            quantity : 1,
             reset : false
     }
 
@@ -26,7 +26,7 @@ class ProductDetails extends React.Component {
     handleAddingCard = async (brand, name, prices, id) => {
         await this.setState({brand: brand, name: name, prices: prices, id: id});
         this.props.handleAddingCard(this.state);
-    await    this.setState({
+       await  this.setState({
             brand: '',
             name : '',
             prices : '',

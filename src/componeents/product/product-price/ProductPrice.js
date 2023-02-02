@@ -7,10 +7,14 @@ class ProductPrice extends React.Component {
         price : {
             symbol : '',
             amount : 0
-        }
+        },
+        size : 'large'
     }
     
     componentDidMount() {
+        if(window.innerWidth <= 325) {
+            this.setState({size: 'mini'})
+        }
         const currentProductPrice = this.props.prices.filter(price => price.currency.symbol === this.props.currency)[0];
         this.setState({price : {symbol : this.props.currency, amount : currentProductPrice.amount}})
     }
@@ -24,7 +28,7 @@ class ProductPrice extends React.Component {
 
     render() {
         return (
-            <div className="product-price"> 
+            <div className={`product-price ${this.state.size}`}> 
                 {this.state.price.symbol}
                 {this.state.price.amount}
             </div>
