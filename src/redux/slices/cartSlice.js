@@ -30,10 +30,36 @@ const cartSlice = createSlice({
         state.cartData.push(action.payload);
       }
       localStorage.setItem('cart',JSON.stringify(state.cartData));
+      },
+      setAttributeChanges: (state, action) => {
+        const { changedProperty, preChangedCartProduct } = action.payload
+
+        state.cartData.map((item, index) => {
+          if(item.id === preChangedCartProduct.id && 
+            JSON.stringify(item.attributes) === JSON.stringify(preChangedCartProduct.attributes)) {
+              let keyName = Object.keys(changedProperty)[0];
+              state.cartData[index].attributes[keyName] = changedProperty[keyName]
+              localStorage.setItem('cart',JSON.stringify(state.cartData));
+            }
+        });
+      },
+      setQuantityChanges: (state, action) => {
+        state.cartData.map((item, index) => {
+          if(item.id === action.payload[0].id &&
+            JSON.stringify(item.attributes) === JSON.stringify(action.payload[0].attributes )) {
+              if(state.cartData[index].quantity > 0) {
+                state.cartData[index].quantity = action.payload[1];
+              } 
+              if(state.cartData[index].quantity <= 0) {
+                state.cartData.splice(index,1)
+              }
+            }
+        });
+        localStorage.setItem('cart',JSON.stringify(state.cartData));
       }
     }
   })
 
-export const { setCart }  = cartSlice.actions;
+export const { setCart, setAttributeChanges, setQuantityChanges }  = cartSlice.actions;
 
 export default cartSlice.reducer;

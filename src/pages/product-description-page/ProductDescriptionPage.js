@@ -18,6 +18,7 @@ query Product($id: String!) {
         description
         category
         brand
+        __typename @skip(if: true)
         prices {
             amount
             currency {
@@ -28,7 +29,7 @@ query Product($id: String!) {
         attributes {
             id
             name
-            type
+            __typename @skip(if: true)
             items {
                 displayValue
                 value

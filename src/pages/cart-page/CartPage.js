@@ -15,6 +15,7 @@ class CartPage extends React.Component {
     }
 
     render() {
+        console.log(this.props.cartData)
         return (
             <ul className={`cart-page-list ${this.state.size}`}>
                 {this.props.cartData.map((product, index) => 

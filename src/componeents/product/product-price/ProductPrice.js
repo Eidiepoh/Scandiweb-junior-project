@@ -27,10 +27,11 @@ class ProductPrice extends React.Component {
     }
 
     render() {
+        const { quantity = 1} = this.props
         return (
             <div className={`product-price ${this.state.size}`}> 
                 {this.state.price.symbol}
-                {this.state.price.amount}
+                {this.state.price.amount * quantity}
             </div>
         )
     }

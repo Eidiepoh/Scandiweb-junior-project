@@ -7,6 +7,7 @@ import { Query } from '@apollo/client/react/components';
 const GET_NAVBAR_CATEGORIES = gql`
     {
         categories {
+            __typename @skip(if: true)
         name
     }
   }
