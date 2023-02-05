@@ -1,12 +1,35 @@
+.header-fixed-container {
+    position: fixed;
+    right: 0;
+    width: 100%;
+    z-index: 2;
+
+}
+
 .header-container {
-    height: 80px;
     display: flex;
     flex-flow: row nowrap;
     align-items: baseline;
     justify-content: space-between;
+    position: relative;
+    height: 80px;
+    background: #FFFFFF;
+    padding-right: 100px;
+    padding-left: 100px;
+    margin: 0 auto;
 }
 
 .home-icon {
     position: relative;
     top: 10px;
 }
+
+.header-switches {
+    position: relative;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    align-items: flex-end;
+}
+

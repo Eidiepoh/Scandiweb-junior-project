@@ -1,0 +1,118 @@
+.header-right-cart {
+    cursor: pointer;
+    position: relative;
+    color: #43464E;
+}
+
+.header-right-cart-quantity-icon{
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 16px;
+    color: #FFFFFF;
+    background: #1D1F22;
+    border-radius: 60px;
+    min-width: 20px;
+    min-height: 20px;
+    text-align: center;
+    padding-top: 2px;
+    position: absolute;
+    bottom: 14px;
+    right: -11px;
+}
+
+.product-cart-mini-container {
+    max-height: 408px;
+    overflow: scroll;
+}
+
+.cart-products-listing {
+    width: 325px;
+    max-height: 677px;
+    position: absolute;
+    right: -16px;
+    margin-top: 22px;
+    background: #FFFFFF;
+    z-index: 3;
+    overflow: scroll;
+}
+
+.cart-products-listing-heading {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 160%;
+    margin-top: 32px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+
+
+.cart-products-listing-heading span:first-child{
+    font-weight: 700;
+}
+
+.mini-cart-background {
+    background: rgba(57, 55, 72, 0.22);
+    position: fixed;
+    left: 0;
+    top: 78px;
+    bottom: 0;
+    right: 0;
+}
+
+.total-price-container {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+    align-items: baseline;
+    position: relative;
+    margin-top: 41px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.total-price-container-total {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 18px;
+}
+
+.total-price-container-price {
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 26px;
+}
+
+.cart-header-buttons {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 12px;
+    margin-top: 32px;
+    margin-bottom: 32px;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.cart-header-button {
+    width: 140px;
+    height: 43px;
+    padding: 13px 32px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 17px;
+    white-space: nowrap;
+}
+
+.cart-header-button.view-bag {
+    background: #FFFFFF;
+    border: 1px solid #1D1F22;
+    color: #1D1F22;
+}
+
+.cart-header-button.check-out {
+    background: #5ECE7B;
+    border: 1px solid #5ECE7B;
+    color: #FFFFFF;
+}

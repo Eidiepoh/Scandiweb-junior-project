@@ -25,7 +25,6 @@ class Navbar extends React.Component {
                         return(
                             <ul className="navbar-list">
                             <NavLink to={`/cart`}>
-                                soooo
                             </NavLink>
                             {data.categories.map(({name}) => 
                             <li className="navbar-list-item" key={name}>

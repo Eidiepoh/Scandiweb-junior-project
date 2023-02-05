@@ -4,7 +4,6 @@ import { gql } from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
 import { connect } from 'react-redux';
 import { setQuantityChanges, setAttributeChanges } from '../../../redux/slices/cartSlice';
-import ProductHeadings from '../productHeadings/ProductHeadings';
 import ProductPrice from '../../product/product-price/ProductPrice';
 import ProductAttributes from '../productAttributes/ProductAttributes';
 import ProductCartImages from '../productCartimages/ProductCartImages';
@@ -43,29 +42,33 @@ query Product($id: String!) {
 
 class ProductCartView extends React.Component {
     state = {
-        size: 'large',
+        size: this.props.size,
         quantity: this.props.product.quantity
     }
 
-    componentDidMount() {
-        if(window.innerWidth <= 325) {
-            this.setState({size: 'mini'})
-        }
+    componentDidUpdate(prevProps, prevState) {
+        // console.log('prevProps',prevProps)
+        // console.log('prevState',prevState)
+        // console.log('stat',this.state.quantity)
+        // console.log(this.props.cartData.filter(item => JSON.stringify(item) === JSON.stringify(this.props.product) ))
     }
 
     handleChildAttributeData = (changedProperty, preChangedCartProduct) => {
         this.props.setAttributeChanges({changedProperty, preChangedCartProduct});
+        this.props.triggerQuantityAndTotalUpdate();
     }
 
     handleCartDataQuantityIncrement = async () => {
         await this.setState({quantity: this.state.quantity += 1});
-        console.log(this.props.product)
-        this.props.setQuantityChanges([this.props.product, this.state.quantity]);
+        await this.props.setQuantityChanges([this.props.product, this.state.quantity]);
+        console.log(this.props.cartData)
+        this.props.triggerQuantityAndTotalUpdate();
     }
 
     handleCartDataQuantityDecrement = async () => {
         await this.setState({quantity: this.state.quantity -= 1});
-        this.props.setQuantityChanges([this.props.product, this.state.quantity]);
+        await this.props.setQuantityChanges([this.props.product, this.state.quantity]);
+        this.props.triggerQuantityAndTotalUpdate();
     }
 
     render() {
@@ -79,17 +82,21 @@ class ProductCartView extends React.Component {
                         const { name, brand, prices, attributes, gallery } = data.product
 
                         return(
-                            <div>
+                            <div className={`product-cart-view-container ${this.state.size}`}>
                                 <div className="product-cart-view-topLine"
                                     style={{display : this.state.size === 'large' ? 'block' : 'none'}}>
                                 </div>
-                                <div className="product-cart">
+                                <div className={`product-cart ${this.state.size}`}>
                                     <div className={`product-cart-view ${this.state.size}`}>
-                                        <div className="product-cart-view-headings">
-                                            <ProductHeadings brand={brand} name={name}/>
+                                        <div className={`product-cart-view-headings ${this.state.size}`} >
+                                            <h1 className={`product-cart-view-headings-brand ${this.state.size}`}>{brand}</h1>
+                                            <h2 className={`product-cart-view-headings-name ${this.state.size}`}>{name}</h2>
                                         </div>
                                         <div className={`product-cart-view-price ${this.state.size}`}>
-                                            <ProductPrice prices={prices} quantity={quantity}/>
+                                            <ProductPrice 
+                                            size={this.props.size}
+                                            prices={prices} 
+                                            quantity={quantity}/>
                                         </div>
                                         <div>
                                             {!attributes[0] ? '' :
@@ -97,7 +104,10 @@ class ProductCartView extends React.Component {
                                                 {attributes.map((attribute, index) => 
                                                 
                                                     <li className={`product-cart-view-attributes-list-item ${this.state.size}`} key={`${index} ${id}`}>
-                                                        <ProductAttributes attribute={attribute}  cartData={this.props.product}
+                                                        <ProductAttributes 
+                                                        size={this.state.size}
+                                                        attribute={attribute}  
+                                                        cartData={this.props.product}
                                                         sendAttributeChoiceToParent={this.handleChildAttributeData}/>  
                                                     </li>
                                                 )} 
@@ -107,15 +117,24 @@ class ProductCartView extends React.Component {
                                     <div className={`product-cart-view-right ${this.state.size}`}>
                                             <div className={`product-cart-view-right-quentity ${this.state.size}`}>
                                                 <button className={`product-cart-view-right-quantity-button ${this.state.size}`}
-                                                onClick={this.handleCartDataQuantityIncrement}>+</button>
+                                                onClick={this.handleCartDataQuantityIncrement}>
+                                                    {`+`}
+                                                </button>
                                                     <div className={`product-cart-view-right-quantity-amount ${this.state.size}`}>
                                                         {this.state.quantity}
                                                     </div>
                                                 <button className={`product-cart-view-right-quantity-button ${this.state.size}`}
-                                                onClick={this.handleCartDataQuantityDecrement}>-</button>
+                                                onClick={this.handleCartDataQuantityDecrement}>
+                                                    {`-`}
+                                                </button>
                                             </div>
-                                            <ProductCartImages images={gallery}/>
-                                        </div>
+                                            <ProductCartImages 
+                                            size={this.props.size}
+                                            images={gallery}/>
+                                    </div>
+                                </div>
+                                <div className="product-cart-view-topLine"
+                                    style={{display : this.state.size === 'large' ? 'block' : 'none'}}>
                                 </div>
                             </div>
                         )
@@ -126,6 +145,10 @@ class ProductCartView extends React.Component {
     }
 }
 
+const mapStateToProps = state => {
+    return state.cart
+}
+
 const mapDispatchToProps = { setQuantityChanges, setAttributeChanges }
 
-export default connect(null,mapDispatchToProps)(ProductCartView);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCartView);

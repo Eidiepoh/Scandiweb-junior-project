@@ -1,0 +1,11 @@
+.cart-page-list {
+    list-style: none;
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 32px 16px;
+}
+
+.cart-page-list.mini {
+    width: 325px;
+    gap: 40px;
+}

@@ -2,6 +2,24 @@
     top: 0;
 }
 
+.product-details-headings {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 16px;
+}
+
+.product-details-headings-brand {
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 27px;
+}
+
+.product-details-headings-name {
+    font-weight: 400;
+    font-size: 30px;
+    line-height: 27px;
+}
+
 .product-details-attributes-list{
     list-style: none;
     display: flex;

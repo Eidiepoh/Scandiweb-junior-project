@@ -5,14 +5,11 @@ class ProductCartImages extends React.Component {
     state = {
         images: [],
         currentImageIndex : 0,
-        size : 'large',
+        size : this.props.size,
     }
 
     componentDidMount() {
         this.setState({images: this.props.images});
-        if(window.innerWidth <= 325) {
-            this.setState({size: 'mini'})
-        }
     }
 
     goToPrevImage = () => {

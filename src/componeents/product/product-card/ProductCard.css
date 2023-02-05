@@ -39,7 +39,6 @@
     background: #FFFFFF;
     opacity: 0.5;
     position: absolute;
-    
     width: 386px;
     height: 100%;
 }
@@ -56,5 +55,5 @@
 }
 
 .product-container-list-item-description-price {
-    font-size: 9px;
+    font-size: 18px;
 }

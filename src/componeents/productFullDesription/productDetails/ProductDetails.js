@@ -2,7 +2,7 @@ import React from 'react';
 import './ProductDetails.css';
 import ProductPrice from '../../product/product-price/ProductPrice';
 import ProductAttributes from '../productAttributes/ProductAttributes';
-import ProductHeadings from '../productHeadings/ProductHeadings';
+import DOMPurify from 'dompurify';
 
 class ProductDetails extends React.Component {
     state = {
@@ -12,7 +12,8 @@ class ProductDetails extends React.Component {
             id : '',
             attributes : {},
             quantity : 1,
-            reset : false
+            reset : false,
+            size : this.props.size
     }
 
     handleChildAttributeData = dataFromChild => {
@@ -41,26 +42,28 @@ class ProductDetails extends React.Component {
         return(
             <div className="product-details">
                 <div className="product-details-headings">
-                    <ProductHeadings brand={brand} name={name}/>
+                    <h1 className={`product-details-headings-brand`}>{brand}</h1>
+                    <h2 className={`product-details-headings-name`}>{name}</h2>
                 </div>
                 {!attributes[0] ? '' :
                     <ul className="product-details-attributes-list">
                     {attributes.map((attribute, index) => 
                         <li className="product-details-attributes-list-item" key={`${index} ${id}`}>
-                            <ProductAttributes attribute={attribute} reset={this.state.reset}
+                            <ProductAttributes attribute={attribute} reset={this.state.reset} size={this.state.size}
                             sendAttributeChoiceToParent={this.handleChildAttributeData}/>  
                         </li>
                     )} 
                     </ul>}
                 <div className="product-details-price">
-                    <ProductPrice prices={prices}/>
+                    <ProductPrice prices={prices} size={this.state.size}/>
                 </div>
                 <button className="product-details-button-addCard"
-                disabled={Object.keys(this.state.attributes).length !== this.props.attributes.length}
-                onClick={() => this.handleAddingCard(name, brand, prices, id)}
-                >add to card</button>
+                disabled={!this.props.inStock ||  Object.keys(this.state.attributes).length !== this.props.attributes.length}
+                onClick={() => this.handleAddingCard(name, brand, prices, id)}>
+                    add to card
+                </button>
                 <div className="product-details-description"
-                dangerouslySetInnerHTML={{__html: description}} />
+                dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(description)}} />
             </div>
         )
     }

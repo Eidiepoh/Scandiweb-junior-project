@@ -36,8 +36,10 @@ class ProductCardList extends React.Component {
                     if(error) return (`Error ${error.message}`)
                     if(data) {
                         return(
-                            <ul className="product-card-list">
-                            {data.category.products.map(item =>
+                           <div className="product-list-page-listing">
+                                <h2 className="product-list-page-heading">{this.props.productType}</h2>
+                                <ul className="product-card-list">
+                                {data.category.products.map(item =>
                                 <li key={item.id} >
                                     <Link to={`${data.category.name}/${item.id}`}>
                                         <ProductCard product={item}/>
@@ -46,6 +48,7 @@ class ProductCardList extends React.Component {
                             ) 
                         }
                         </ul>
+                           </div>
                         )
                     }
                 }}

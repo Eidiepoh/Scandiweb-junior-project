@@ -5,13 +5,7 @@ class ProductAttributes extends React.Component {
     state = {
         selectedItem : null,
         reset : this.props.reset,
-        size : 'large'
-    }
-
-    componentDidMount() {
-        if(window.innerWidth <= 325) {
-            this.setState({size: 'mini'})
-        }
+        size : this.props.size
     }
 
     static getDerivedStateFromProps(props, state) {
@@ -44,7 +38,8 @@ class ProductAttributes extends React.Component {
                             
                         }
                         if(id === 'Color'){
-                            return    <li className={`${item.id === this.state.selectedItem ? 'color-highlighted' : ''}
+                            return    <li disabled={item.id === this.state.selectedItem}
+                            className={`${item.id === this.state.selectedItem ? 'color-highlighted' : ''}
                             ${tempValue && this.state.selectedItem === null ? 'color-highlighted' : ''}`}
                             key={item.id}
                             onClick={() => this.sendAttributeChoiceToParent({[id] : item.id}, this.props.cartData)}>
@@ -53,7 +48,8 @@ class ProductAttributes extends React.Component {
                               </div>
                             </li> 
                         }else {
-                            return <li className={`${item.id === this.state.selectedItem ? 'attribute-highlighted' : ' '}
+                            return <li
+                            className={`${item.id === this.state.selectedItem ? 'attribute-highlighted' : ' '}
                             ${tempValue && this.state.selectedItem === null ? 'attribute-highlighted' : ''}`}
                              key={item.id}
                              onClick={() => this.sendAttributeChoiceToParent({[id] : item.id}, this.props.cartData)}>

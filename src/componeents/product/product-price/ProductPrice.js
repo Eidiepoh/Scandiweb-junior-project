@@ -8,7 +8,7 @@ class ProductPrice extends React.Component {
             symbol : '',
             amount : 0
         },
-        size : 'large'
+        size : this.props.size
     }
     
     componentDidMount() {
@@ -31,7 +31,7 @@ class ProductPrice extends React.Component {
         return (
             <div className={`product-price ${this.state.size}`}> 
                 {this.state.price.symbol}
-                {this.state.price.amount * quantity}
+                {(this.state.price.amount * quantity).toFixed(2)}
             </div>
         )
     }

@@ -6,7 +6,8 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ProductImages from '../../componeents/productFullDesription/productImages/ProductImages';
 import ProductDetails from '../../componeents/productFullDesription/productDetails/ProductDetails';
-import { setCart } from '../../redux/slices/cartSlice';
+import { updateCartSliceQuantityAndTotal } from '../../assets/functions';
+import { setCart, setTotalQuantityAndTotal } from '../../redux/slices/cartSlice';
 
 const GET_PRODUCT_BY_ID = gql`
 query Product($id: String!) {
@@ -44,6 +45,8 @@ class ProductDescriptionPage extends React.Component {
 
     handleData = (data) => {
         this.props.setCart(data);
+        const { quantity, total } = updateCartSliceQuantityAndTotal(this.props.cartSlice.cartData, this.props.currencySlice.currency)
+        this.props.setTotalQuantityAndTotal([quantity, total])
     }
 
     render() {
@@ -68,6 +71,8 @@ class ProductDescriptionPage extends React.Component {
                                 description={data.product.description}
                                 id={data.product.id}
                                 handleAddingCard={this.handleData}
+                                inStock={data.product.inStock}
+                                size="large"
                                 />
                             </div>
                         )
@@ -81,9 +86,12 @@ class ProductDescriptionPage extends React.Component {
 const ProductDescriptiontWithRouter = withRouter(ProductDescriptionPage);
 
 const mapStateToProps = state => {
-    return state.cart;
+    return {
+        cartSlice: state.cart,
+        currencySlice: state.currency
+    }
   }
 
-const mapDispatchToProps = { setCart }
+const mapDispatchToProps = { setCart, setTotalQuantityAndTotal }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDescriptiontWithRouter);
