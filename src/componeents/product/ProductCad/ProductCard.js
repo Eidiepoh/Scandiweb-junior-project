@@ -1,6 +1,6 @@
 import React from 'react';
 import './ProductCard.css';
-import ProductPrice from '../product-price/ProductPrice';
+import ProductPrice from '../ProductPrice/ProductPrice';
 
 class ProductCard extends React.Component {
 

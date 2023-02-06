@@ -38,13 +38,14 @@ class ProductAttributes extends React.Component {
                             
                         }
                         if(id === 'Color'){
-                            return    <li disabled={item.id === this.state.selectedItem}
-                            className={`${item.id === this.state.selectedItem ? 'color-highlighted' : ''}
+                            return    <li
+                            className={`color-attribute ${item.id === this.state.selectedItem ? 'color-highlighted' : ''}
                             ${tempValue && this.state.selectedItem === null ? 'color-highlighted' : ''}`}
                             key={item.id}
                             onClick={() => this.sendAttributeChoiceToParent({[id] : item.id}, this.props.cartData)}>
                               <div className={`attribute-list-color ${this.state.size}`}
-                                  style={{background: item.value}}>
+                                    style={{background: item.value,
+                                    border: item.id === "White" ? "solid 0.5px black" : ''}}>
                               </div>
                             </li> 
                         }else {

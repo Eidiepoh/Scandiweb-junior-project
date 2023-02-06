@@ -1,8 +1,8 @@
 import React from 'react';
 import Header from './componeents/header/Header';
-import ProductListPage from './pages/product-list-page/ProductListPage';
-import ProductDescriptionPage from './pages/product-description-page/ProductDescriptionPage';
-import CartPage from './pages/cart-page/CartPage';
+import ProductListPage from './pages/ProductListPage/ProductListPage';
+import ProductDescriptionPage from './pages/ProductDescriptionPage/ProductDescriptionPage';
+import CartPage from './pages/CartPage/CartPage';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import './App.css'
 

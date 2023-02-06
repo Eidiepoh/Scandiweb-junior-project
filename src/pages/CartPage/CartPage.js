@@ -1,6 +1,6 @@
 import React from 'react';
 import './CartPage.css';
-import ProductCart from '../../componeents/productCart/ProductCart';
+import ProductCart from '../../componeents/ProductCart/ProductCart';
 import { connect } from 'react-redux';
 
 class CartPage extends React.Component {

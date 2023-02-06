@@ -4,8 +4,8 @@ import { gql } from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import ProductImages from '../../componeents/productFullDesription/productImages/ProductImages';
-import ProductDetails from '../../componeents/productFullDesription/productDetails/ProductDetails';
+import ProductImages from '../../componeents/product/ProductImages/ProductImages';
+import ProductDetails from '../../componeents/productFullDesription/ProductDetails/ProductDetails';
 import { updateCartSliceQuantityAndTotal } from '../../assets/functions';
 import { setCart, setTotalQuantityAndTotal } from '../../redux/slices/cartSlice';
 
@@ -43,10 +43,11 @@ query Product($id: String!) {
 
 class ProductDescriptionPage extends React.Component {
 
-    handleData = (data) => {
+    handleData = async (data) => {
         this.props.setCart(data);
         const { quantity, total } = updateCartSliceQuantityAndTotal(this.props.cartSlice.cartData, this.props.currencySlice.currency)
-        this.props.setTotalQuantityAndTotal([quantity, total])
+    await    this.props.setTotalQuantityAndTotal([quantity+1, total]);
+        console.log(quantity, total)
     }
 
     render() {

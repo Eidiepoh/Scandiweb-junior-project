@@ -2,7 +2,7 @@ import React from 'react';
 import './ProductCart.css';
 import { connect } from 'react-redux';
 import { setTotalQuantityAndTotal } from '../../redux/slices/cartSlice';
-import ProductCartView from '../productFullDesription/productCartView/ProductCartView';
+import ProductCartView from '../productFullDesription/ProductCartView/ProductCartView';
 import { updateCartSliceQuantityAndTotal } from '../../assets/functions';
 
 class ProductCart extends React.Component {

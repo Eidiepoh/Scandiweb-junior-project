@@ -1,8 +1,8 @@
 import React from 'react';
 import './Header.css'
-import Navbar from './navbar/Navbar';
-import Currency from './currency/Currency';
-import CartHeader from './cart/CartHeader';
+import Navbar from './Navbar/Navbar';
+import Currency from './Currency/Currency';
+import CartHeader from './CartHeader/CartHeader';
 
 class Header extends React.Component {
     render() {

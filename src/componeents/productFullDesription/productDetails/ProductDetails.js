@@ -1,7 +1,7 @@
 import React from 'react';
 import './ProductDetails.css';
-import ProductPrice from '../../product/product-price/ProductPrice';
-import ProductAttributes from '../productAttributes/ProductAttributes';
+import ProductPrice from '../../product/ProductPrice/ProductPrice';
+import ProductAttributes from '../ProductAttributes/ProductAttributes';
 import DOMPurify from 'dompurify';
 
 class ProductDetails extends React.Component {
@@ -27,7 +27,7 @@ class ProductDetails extends React.Component {
     handleAddingCard = async (brand, name, prices, id) => {
         await this.setState({brand: brand, name: name, prices: prices, id: id});
         this.props.handleAddingCard(this.state);
-       await  this.setState({
+        await  this.setState({
             brand: '',
             name : '',
             prices : '',

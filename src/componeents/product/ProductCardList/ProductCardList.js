@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductCard from '../product-card/ProductCard';
+import ProductCard from '../ProductCard/ProductCard';
 import { gql } from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
 import './ProductCardList.css';

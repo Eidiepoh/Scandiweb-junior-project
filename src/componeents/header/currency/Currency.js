@@ -1,6 +1,6 @@
 import React from 'react';
 import './Currency.css';
-import CurrencySwitch from '../currencySwitch/CurrencySwitch';
+import CurrencySwitch from '../CurrencySwitch/CurrencySwitch';
 import { connect } from 'react-redux';
 
 class Currency extends React.Component {

@@ -4,9 +4,9 @@ import { gql } from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
 import { connect } from 'react-redux';
 import { setQuantityChanges, setAttributeChanges } from '../../../redux/slices/cartSlice';
-import ProductPrice from '../../product/product-price/ProductPrice';
-import ProductAttributes from '../productAttributes/ProductAttributes';
-import ProductCartImages from '../productCartimages/ProductCartImages';
+import ProductPrice from '../../product/ProductPrice/ProductPrice';
+import ProductAttributes from '../ProductAttributes/ProductAttributes';
+import ProductCartImages from '../ProductCartimages/ProductCartImages';
 
 const GET_PRODUCT_BY_ID = gql`
 query Product($id: String!) {
@@ -61,7 +61,6 @@ class ProductCartView extends React.Component {
     handleCartDataQuantityIncrement = async () => {
         await this.setState({quantity: this.state.quantity += 1});
         await this.props.setQuantityChanges([this.props.product, this.state.quantity]);
-        console.log(this.props.cartData)
         this.props.triggerQuantityAndTotalUpdate();
     }
 

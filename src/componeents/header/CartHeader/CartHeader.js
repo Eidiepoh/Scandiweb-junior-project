@@ -2,7 +2,7 @@ import React from 'react';
 import './CartHeader.css';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import ProductCart from '../../productCart/ProductCart';
+import ProductCart from '../../ProductCart/ProductCart';
 
 class CartHeader extends React.Component {
 
