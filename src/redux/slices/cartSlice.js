@@ -74,9 +74,6 @@ const cartSlice = createSlice({
               } else {
                 state.cartData[index] = temp;
               }
-             
-
-              
             }
         });
         state.cartData = state.cartData.filter(item => item.quantity > 0)
@@ -89,7 +86,6 @@ const cartSlice = createSlice({
             JSON.stringify(item.attributes) === JSON.stringify(action.payload[0].attributes )) {
               if(state.cartData[index].quantity > 0) {
                 state.cartData[index].quantity = action.payload[1];
-                console.log(action.payload[1])
               } 
               if(state.cartData[index].quantity <= 0) {
                 state.cartData.splice(index,1)

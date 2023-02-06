@@ -23,7 +23,6 @@ class ProductCart extends React.Component {
     }
 
     render() {
-
         return (
             <ul className={`cart-page-list ${this.state.size}`}>
                 {this.props.cartSlice.cartData.map((product, index) => 

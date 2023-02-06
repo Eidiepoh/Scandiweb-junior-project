@@ -46,13 +46,6 @@ class ProductCartView extends React.Component {
         quantity: this.props.product.quantity
     }
 
-    componentDidUpdate(prevProps, prevState) {
-        // console.log('prevProps',prevProps)
-        // console.log('prevState',prevState)
-        // console.log('stat',this.state.quantity)
-        // console.log(this.props.cartData.filter(item => JSON.stringify(item) === JSON.stringify(this.props.product) ))
-    }
-
     handleChildAttributeData = (changedProperty, preChangedCartProduct) => {
         this.props.setAttributeChanges({changedProperty, preChangedCartProduct});
         this.props.triggerQuantityAndTotalUpdate();
@@ -101,7 +94,6 @@ class ProductCartView extends React.Component {
                                             {!attributes[0] ? '' :
                                             <ul className={`product-cart-view-attributes-list ${this.state.size}`}>
                                                 {attributes.map((attribute, index) => 
-                                                
                                                     <li className={`product-cart-view-attributes-list-item ${this.state.size}`} key={`${index} ${id}`}>
                                                         <ProductAttributes 
                                                         size={this.state.size}
@@ -109,7 +101,7 @@ class ProductCartView extends React.Component {
                                                         cartData={this.props.product}
                                                         sendAttributeChoiceToParent={this.handleChildAttributeData}/>  
                                                     </li>
-                                                )} 
+                                                )}
                                             </ul>}
                                         </div>
                                     </div>
@@ -120,7 +112,7 @@ class ProductCartView extends React.Component {
                                                     {`+`}
                                                 </button>
                                                     <div className={`product-cart-view-right-quantity-amount ${this.state.size}`}>
-                                                        {this.state.quantity}
+                                                        {this.props.product.quantity}
                                                     </div>
                                                 <button className={`product-cart-view-right-quantity-button ${this.state.size}`}
                                                 onClick={this.handleCartDataQuantityDecrement}>
