@@ -28,6 +28,7 @@
     letter-spacing: 0.05em;
     background: #FFFFFF;
     border: 1px solid #1D1F22;
+
 }
 
 .attribute-list-item.large {
@@ -36,6 +37,7 @@
     padding-top: 12px;
     width: 63px;
     height: 45px;
+
 }
 
 .attribute-list-item.mini {
@@ -45,16 +47,6 @@
     height: 24px;
 }
 
-.color-attribute {
-    width: 20px;
-    height: 20px;
-    border: 1px solid red;
-    position: relative;
-}
-
-.color-highlighted {
-    /* // */
-}
 .attribute-list-color.large {
     width: 32px;
     height: 32px;
@@ -63,21 +55,7 @@
 .attribute-list-color.mini {
     width: 16px;
     height: 16px;
-    position: relative;
-    left: 1px;
-    top: 1px;
 }
-
-
-
-/* 
-.color-attribute {
-    width: 20px;
-    height: 20px;
-    border: 1px solid #5ECE7B;
-    box-sizing: content-box;
-} */
-
 
 .attribute-list li {
     cursor: pointer;
@@ -87,4 +65,12 @@
     color: #FFFFFF;
     background: #1D1F22;
     border: 1px solid #1D1F22;
+}
+.color-attribute  {
+    border: 1px solid #ffffff;
+    padding: 1px;
+}
+
+.color-highlighted {
+    border: 1px solid #5ECE7B;
 }
