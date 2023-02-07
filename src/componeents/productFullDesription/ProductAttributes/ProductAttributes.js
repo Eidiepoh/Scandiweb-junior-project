@@ -7,8 +7,8 @@ class ProductAttributes extends React.Component {
         reset : this.props.reset,
         size : this.props.size
     }
-
-    static getDerivedStateFromProps(props, state) {
+    
+    componentDidUpdate(props, state) {
         if(state.reset !== props.reset) {
             return {
                 selectedItem: null
@@ -16,6 +16,7 @@ class ProductAttributes extends React.Component {
         }
         return null
     }
+
 
     sendAttributeChoiceToParent = async (changedProperty, preChangedCartProduct) => {
         const changedProppertyValue = changedProperty[Object.keys(changedProperty)[0]]
@@ -34,8 +35,13 @@ class ProductAttributes extends React.Component {
                     {items.map(item => 
                      {  let tempValue;
                         if(this.props.cartData) {
-                            tempValue = item.id ===this.props.cartData.attributes[id];
-                            
+                            tempValue = item.id === this.props.cartData.attributes[id];
+                            if(item.id === this.props.cartData.attributes[id]) {
+                                // console.log(this.props.cartData.attributes[id])
+                                // console.log(item.id)
+                                // console.log(item)
+                            }
+                           
                         }
                         if(id === 'Color'){
                             return    <li

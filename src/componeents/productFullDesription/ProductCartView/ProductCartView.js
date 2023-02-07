@@ -99,7 +99,7 @@ class ProductCartView extends React.Component {
                                                         size={this.state.size}
                                                         attribute={attribute}  
                                                         cartData={this.props.product}
-                                                        sendAttributeChoiceToParent={this.handleChildAttributeData}/>  
+                                                        sendAttributeChoiceToParent={this.handleChildAttributeData}/>
                                                     </li>
                                                 )}
                                             </ul>}

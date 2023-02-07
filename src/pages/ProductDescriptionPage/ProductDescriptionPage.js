@@ -46,8 +46,7 @@ class ProductDescriptionPage extends React.Component {
     handleData = async (data) => {
         this.props.setCart(data);
         const { quantity, total } = updateCartSliceQuantityAndTotal(this.props.cartSlice.cartData, this.props.currencySlice.currency)
-    await    this.props.setTotalQuantityAndTotal([quantity+1, total]);
-        console.log(quantity, total)
+        await    this.props.setTotalQuantityAndTotal([quantity+1, total]);
     }
 
     render() {

@@ -3,8 +3,9 @@ import './ProductCard.css';
 import ProductPrice from '../ProductPrice/ProductPrice';
 
 class ProductCard extends React.Component {
-
     render () {
+    console.log(this.props)
+
         return (
             <div className="product-container">
             {this.props.product.inStock || 

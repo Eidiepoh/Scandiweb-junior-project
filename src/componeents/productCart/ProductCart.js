@@ -16,6 +16,11 @@ class ProductCart extends React.Component {
         this.setQuantityAndTotalInSlice();
     }
     
+    componentDidUpdate(a,b) {
+        // console.log(a)
+        // console.log(b)
+    }
+
     setQuantityAndTotalInSlice = async() => {
         const { quantity, total } = updateCartSliceQuantityAndTotal(this.props.cartSlice.cartData, this.props.currencySlice.currency)
         await     this.setState({quantity: quantity, total: total})

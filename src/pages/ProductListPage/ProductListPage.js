@@ -27,7 +27,7 @@ class ProductListPage extends React.Component {
                     if(data) {
                         return (
                             <div className="product-list-page">
-                                <ProductCardList productType={data.categories[0].name}/>
+                                <ProductCardList productType={data.categories[0].name} data={data}/>
                             </div>
                         )
                     }}}
