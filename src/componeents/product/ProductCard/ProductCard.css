@@ -9,6 +9,14 @@
     box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
 } 
 
+.product-card-insta-add {
+    display: none;
+}
+
+.product-container:hover .product-card-insta-add{
+    display: block;
+} 
+
 .product-container-list {
     display: flex;
     flex-flow: column nowrap;

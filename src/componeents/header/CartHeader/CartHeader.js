@@ -39,7 +39,7 @@ class CartHeader extends React.Component {
                                 <span>{` ${this.props.cartSlice.quantity} items`}</span>
                             </div>
                             <div className="product-cart-mini-container">
-                                <ProductCart size="mini"/>
+                                <ProductCart componentStyle="mini"/>
                             </div>
                             <div className="total-price-container">
                                 <div className="total-price-container-total">

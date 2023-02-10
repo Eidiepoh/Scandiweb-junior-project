@@ -4,7 +4,6 @@ import { gql } from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import ProductImages from '../../componeents/product/ProductImages/ProductImages';
 import ProductDetails from '../../componeents/productFullDesription/ProductDetails/ProductDetails';
 import { updateCartSliceQuantityAndTotal } from '../../assets/functions';
 import { setCart, setTotalQuantityAndTotal } from '../../redux/slices/cartSlice';
@@ -17,7 +16,6 @@ query Product($id: String!) {
         inStock
         gallery
         description
-        category
         brand
         __typename @skip(if: true)
         prices {
@@ -45,8 +43,7 @@ class ProductDescriptionPage extends React.Component {
 
     handleData = async (data) => {
         this.props.setCart(data);
-        const { quantity, total } = updateCartSliceQuantityAndTotal(this.props.cartSlice.cartData, this.props.currencySlice.currency)
-        await    this.props.setTotalQuantityAndTotal([quantity+1, total]);
+
     }
 
     render() {
@@ -59,20 +56,10 @@ class ProductDescriptionPage extends React.Component {
                     if(data) {
                         return(
                             <div className="product-description-page">
-                                <ProductImages 
-                                images={data.product.gallery}
-                                id={data.product.id}/>
-                                
-                                <ProductDetails 
-                                brand={data.product.brand}
-                                name={data.product.name}
-                                attributes={data.product.attributes}
-                                prices={data.product.prices}
-                                description={data.product.description}
-                                id={data.product.id}
+                                <ProductDetails
+                                product = {JSON.parse(JSON.stringify(data.product))}
                                 handleAddingCard={this.handleData}
-                                inStock={data.product.inStock}
-                                size="large"
+                                componentStyle="large"
                                 />
                             </div>
                         )

@@ -5,7 +5,7 @@ class ProductCartImages extends React.Component {
     state = {
         images: [],
         currentImageIndex : 0,
-        size : this.props.size,
+        componentStyle : this.props.componentStyle,
     }
 
     componentDidMount() {
@@ -26,13 +26,13 @@ class ProductCartImages extends React.Component {
 
     render() {
         return(
-            <div className={`product-card-images ${this.state.size}`}>
-                <img className={`product-card-images-item ${this.state.size}`}
+            <div className={`product-card-images ${this.state.componentStyle}`}>
+                <img className={`product-card-images-item ${this.state.componentStyle}`}
                 src={this.state.images[this.state.currentImageIndex]} alt="current image"/>
-                <div className={`product-card-images-arrows ${this.state.size}`}>
-                    <button className={`product-card-images-arrows-arrow ${this.state.size}`}
+                <div className={`product-card-images-arrows ${this.state.componentStyle}`}>
+                    <button className={`product-card-images-arrows-arrow ${this.state.componentStyle}`}
                     onClick={this.goToPrevImage}>{'<'}</button>
-                    <button className={`product-card-images-arrows-arrow ${this.state.size}`}
+                    <button className={`product-card-images-arrows-arrow ${this.state.componentStyle}`}
                     onClick={this.goToNextImage}>{'>'}</button>
                 </div>
             </div>

@@ -42,40 +42,52 @@ const cartSlice = createSlice({
         } else {
         state.cartData.push(action.payload);
       }
-
+      state.quantity += 1
       localStorage.setItem('cart',JSON.stringify(state.cartData));
       },
 
       setAttributeChanges: (state, action) => {
         const { changedProperty, preChangedCartProduct } = action.payload
-        let keyName = Object.keys(changedProperty)[0];
+        let selectedAttr;
+        let selectedAttrIndex;
+        preChangedCartProduct.attributes.map((product, index) => {
+          if(product.id === changedProperty.id) {
+            selectedAttr = product;
+            selectedAttrIndex = index;
+            return;
+          }
+        })
+        if(selectedAttr.selected === changedProperty.selected) return
         
-        if(preChangedCartProduct.attributes[keyName] === changedProperty[keyName]) return
+        // console.log(JSON.parse(JSON.stringify()))
         
         state.cartData.map((item, index) => {
+
+          // loop cartData and find pre-changed data location
           if(item.id === preChangedCartProduct.id && 
             JSON.stringify(item.attributes) === JSON.stringify(preChangedCartProduct.attributes)) {
+              // creating copy object, representing how changed data should be
               let temp = JSON.parse(JSON.stringify(state.cartData[index]));
-              temp.attributes[keyName] = changedProperty[keyName]
+              temp.attributes[selectedAttrIndex] = changedProperty;
 
-              const moka = state.cartData.filter(item => item.id === temp.id && 
+              // finding if copy of temp object already exists
+              const tempCopyIndex = state.cartData.findIndex((item) => item.id === temp.id && 
                 JSON.stringify(item.attributes) === JSON.stringify(temp.attributes))
-              let mopa = true;
-              
-              if(moka.length > 0) {
-                state.cartData.map((nextItem, nextIndex) => {
-                  if(nextItem.id === temp.id && JSON.stringify(nextItem.attributes) === JSON.stringify(temp.attributes)){
-                      state.cartData[nextIndex].quantity += state.cartData[index].quantity;
-                      state.cartData[index].quantity = 0;
-                      mopa = false;
-                    }
-                })
-  
-              } else {
+
+              // if this kind of object doesn't exist, upgrade it by replacing it with temp
+              if(tempCopyIndex === -1) {
                 state.cartData[index] = temp;
+              } else {
+                // if this kind of object already exists, increase its quantity
+                state.cartData[tempCopyIndex].quantity += state.cartData[index].quantity;
+                // console.log(JSON.parse(JSON.stringify(state.cartData[index])))
+                state.cartData[index].quantity = 0;
+                state.cartData.splice(index,1)
+                // console.log(JSON.parse(JSON.stringify(state.cartData[index])))
               }
             }
         });
+        // clear cartData from products with 0 quantity
         state.cartData = state.cartData.filter(item => item.quantity > 0)
         localStorage.setItem('cart',JSON.stringify(state.cartData));
       },
@@ -96,6 +108,8 @@ const cartSlice = createSlice({
       },
       
       setTotalQuantityAndTotal: (state, action) => {
+        // console.log(JSON.parse(JSON.stringify(state.quantity)))
+        // console.log(JSON.parse(JSON.stringify(action.payload)))
         state.quantity = action.payload[0];
         state.total = action.payload[1];
       }

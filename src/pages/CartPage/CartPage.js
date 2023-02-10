@@ -16,7 +16,7 @@ class CartPage extends React.Component {
             <div className="product-cart-page">
                 <h1 className="product-cart-page-heading">cart</h1>
                 <div className="product-cart-page-cart">
-                    <ProductCart size="large"/>
+                    <ProductCart componentStyle="large"/>
                 </div>
                 <ul className="product-cart-page-price-list">
                     <li className="product-cart-page-price-list-item">

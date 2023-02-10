@@ -1,3 +1,9 @@
+.product-details-container {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 100px;
+}
+
 .product-details-headings {
     top: 0;
 }

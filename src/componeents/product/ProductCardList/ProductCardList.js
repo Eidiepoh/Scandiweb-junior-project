@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 const GET_PRODUCT_BY_TYPE = gql`
 query getProducts($category : CategoryInput){
     category(input: $category){
-        name
         products {
          name
          gallery
@@ -35,6 +34,7 @@ class ProductCardList extends React.Component {
                     if(loading) return null
                     if(error) return (`Error ${error.message}`)
                     if(data) {
+                        // console.log('data',data)
                         return(
                            <div className="product-list-page-listing">
                                 <h2 className="product-list-page-heading">{this.props.productType}</h2>

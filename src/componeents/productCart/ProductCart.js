@@ -7,7 +7,7 @@ import { updateCartSliceQuantityAndTotal } from '../../assets/functions';
 
 class ProductCart extends React.Component {
     state = {
-        size : this.props.size,
+        componentStyle : this.props.componentStyle,
         quantity : '',
         total: ''
     }
@@ -16,11 +16,6 @@ class ProductCart extends React.Component {
         this.setQuantityAndTotalInSlice();
     }
     
-    componentDidUpdate(a,b) {
-        // console.log(a)
-        // console.log(b)
-    }
-
     setQuantityAndTotalInSlice = async() => {
         const { quantity, total } = updateCartSliceQuantityAndTotal(this.props.cartSlice.cartData, this.props.currencySlice.currency)
         await     this.setState({quantity: quantity, total: total})
@@ -29,12 +24,13 @@ class ProductCart extends React.Component {
 
     render() {
         return (
-            <ul className={`cart-page-list ${this.state.size}`}>
+            <ul className={`cart-page-list ${this.state.componentStyle}`}>
+            {/* {console.log('inPorudctCart',this.props.cartSlice.cartData)} */}
                 {this.props.cartSlice.cartData.map((product, index) => 
                 <li className="cart-page-list-item" key={`${index} ${product.name}`}>
                     <ProductCartView 
                     product={product} 
-                    size={this.state.size}
+                    componentStyle={this.state.componentStyle}
                     triggerQuantityAndTotalUpdate={this.setQuantityAndTotalInSlice}/>
                 </li>)}
             </ul>

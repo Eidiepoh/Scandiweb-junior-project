@@ -3,12 +3,12 @@ import './ProductAttributes.css';
 
 class ProductAttributes extends React.Component {
     state = {
-        selectedItem : null,
+        selectedItem : this.props.attribute.selected,
         reset : this.props.reset,
-        size : this.props.size
+        componentStyle : this.props.componentStyle
     }
     
-    componentDidUpdate(props, state) {
+    static getDerivedStateFromProps(props, state) {
         if(state.reset !== props.reset) {
             return {
                 selectedItem: null
@@ -17,55 +17,46 @@ class ProductAttributes extends React.Component {
         return null
     }
 
-
-    sendAttributeChoiceToParent = async (changedProperty, preChangedCartProduct) => {
-        const changedProppertyValue = changedProperty[Object.keys(changedProperty)[0]]
-        this.setState({selectedItem: changedProppertyValue});
-        this.props.sendAttributeChoiceToParent(changedProperty, preChangedCartProduct);
+    sendAttributeChoiceToParent = async (changedProperty) => {
+        const reDeclaredAttributes = JSON.parse(JSON.stringify(this.props.attribute));
+        reDeclaredAttributes.selected = changedProperty[1];
+        this.setState({selectedItem: changedProperty[1]});
+        this.props.sendAttributeChoiceToParent(reDeclaredAttributes);
     }
 
     render() {
-        const { name, items, id} = this.props.attribute;
+        const { name, items: attributeOptions, id: attributeType} = this.props.attribute;
             return(
                 <div className="attribute-container">
-                    <h2 className={`attribute-name ${this.state.size}`}>
+                    <h2 className={`attribute-name ${this.state.componentStyle}`}>
                         {name}:
                     </h2>
-                    <ul className={`attribute-list ${this.state.size}`}>
-                    {items.map(item => 
-                     {  let tempValue;
-                        if(this.props.cartData) {
-                            tempValue = item.id === this.props.cartData.attributes[id];
-                            if(item.id === this.props.cartData.attributes[id]) {
-                                // console.log(this.props.cartData.attributes[id])
-                                // console.log(item.id)
-                                // console.log(item)
-                            }
-                           
-                        }
-                        if(id === 'Color'){
+                    {/* {console.log('propsAttr',this.props.attribute)} */}
+                    {/* {console.log('selectedAttr',this.state.selectedItem)} */}
+                    <ul className={`attribute-list ${this.state.componentStyle}`}>
+                    {attributeOptions.map(option => {
+                        
+                        if(attributeType === 'Color') {
                             return    <li
-                            className={`color-attribute ${item.id === this.state.selectedItem ? 'color-highlighted' : ''}
-                            ${tempValue && this.state.selectedItem === null ? 'color-highlighted' : ''}`}
-                            key={item.id}
-                            onClick={() => this.sendAttributeChoiceToParent({[id] : item.id}, this.props.cartData)}>
-                              <div className={`attribute-list-color ${this.state.size}`}
-                                    style={{background: item.value,
-                                    border: item.id === "White" ? "solid 0.5px black" : ''}}>
+                            className={`color-attribute ${option.id === this.state.selectedItem ? 'color-highlighted' : ''}`}
+                            key={option.id}
+                            onClick={() => this.sendAttributeChoiceToParent([attributeType,option.id])}>
+                              <div className={`attribute-list-color ${this.state.componentStyle}`}
+                                    style={{background: option.value,
+                                    border: option.id === "White" ? "solid 0.5px black" : ''}}>
                               </div>
                             </li> 
-                        }else {
+                        } else {
                             return <li
-                            className={`${item.id === this.state.selectedItem ? 'attribute-highlighted' : ' '}
-                            ${tempValue && this.state.selectedItem === null ? 'attribute-highlighted' : ''}`}
-                             key={item.id}
-                             onClick={() => this.sendAttributeChoiceToParent({[id] : item.id}, this.props.cartData)}>
-                             <div className = {`attribute-list-item ${this.state.size}`}>
-                                 {item.value}
+                            className={`${option.id === this.state.selectedItem ? 'attribute-highlighted' : ''}`}
+                             key={option.id}
+                             onClick={() => this.sendAttributeChoiceToParent([attributeType,option.id])}>
+                             <div className = {`attribute-list-item ${this.state.componentStyle}`}>
+                                 {option.value} 
                              </div>
                              </li> 
-                        }
                       }
+                    }
                     )}
                     </ul>
                 </div>

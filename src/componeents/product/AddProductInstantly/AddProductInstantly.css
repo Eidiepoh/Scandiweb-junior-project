@@ -1,0 +1,10 @@
+.add-insta-to-cart-button {
+    width: 52px;
+    height: 52px;
+    background: #5ECE7B;
+    border-radius: 50%;
+    border: 1px solid #5ECE7B;
+    position: absolute;
+    bottom: 72px;
+    right: 31px;
+}

@@ -1,10 +1,11 @@
 import React from 'react';
 import './ProductCard.css';
 import ProductPrice from '../ProductPrice/ProductPrice';
+import AddProductInstantly from '../AddProductInstantly/AddProductInstantly';
 
 class ProductCard extends React.Component {
     render () {
-    console.log(this.props)
+    // console.log('aliosha 223',this.props)
 
         return (
             <div className="product-container">
@@ -29,6 +30,9 @@ class ProductCard extends React.Component {
                         </div>
                     </li>
                 </ul>
+                <div className="product-card-insta-add">
+                    {this.props.product.inStock && <AddProductInstantly product={this.props.product}/>}
+                </div>
             </div>
 
         )
