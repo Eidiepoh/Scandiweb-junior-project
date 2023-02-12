@@ -24,7 +24,7 @@ class ProductPrice extends React.Component {
     }
 
     render() {
-        const { quantity = 1} = this.props
+        const { quantity = 1 } = this.props
         return (
             <div className={`product-price ${this.state.componentStyle}`}> 
                 {this.state.price.symbol}

@@ -3,12 +3,19 @@ import './ProductAttributes.css';
 
 class ProductAttributes extends React.Component {
     state = {
-        selectedItem : this.props.attribute.selected,
+        selectedItem : '',
         reset : this.props.reset,
         componentStyle : this.props.componentStyle
     }
+
+    componentDidMount() {
+        this.setState({selectedItem: this.props.attribute.selected})
+    }
     
-    static getDerivedStateFromProps(props, state) {
+    componentDidUpdate =  (props, state) =>{
+        if(props.attribute.selected !== state.selectedItem) {
+            this.setState({selectedItem: this.props.attribute.selected})
+        }
         if(state.reset !== props.reset) {
             return {
                 selectedItem: null
@@ -17,7 +24,7 @@ class ProductAttributes extends React.Component {
         return null
     }
 
-    sendAttributeChoiceToParent = async (changedProperty) => {
+    sendAttributeChoiceToParent =  (changedProperty) => {
         const reDeclaredAttributes = JSON.parse(JSON.stringify(this.props.attribute));
         reDeclaredAttributes.selected = changedProperty[1];
         this.setState({selectedItem: changedProperty[1]});
@@ -26,17 +33,16 @@ class ProductAttributes extends React.Component {
 
     render() {
         const { name, items: attributeOptions, id: attributeType} = this.props.attribute;
+
             return(
                 <div className="attribute-container">
                     <h2 className={`attribute-name ${this.state.componentStyle}`}>
                         {name}:
                     </h2>
-                    {/* {console.log('propsAttr',this.props.attribute)} */}
-                    {/* {console.log('selectedAttr',this.state.selectedItem)} */}
                     <ul className={`attribute-list ${this.state.componentStyle}`}>
                     {attributeOptions.map(option => {
-                        
                         if(attributeType === 'Color') {
+                            
                             return    <li
                             className={`color-attribute ${option.id === this.state.selectedItem ? 'color-highlighted' : ''}`}
                             key={option.id}

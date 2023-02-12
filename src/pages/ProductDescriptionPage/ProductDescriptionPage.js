@@ -5,7 +5,6 @@ import { Query } from '@apollo/client/react/components';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import ProductDetails from '../../componeents/productFullDesription/ProductDetails/ProductDetails';
-import { updateCartSliceQuantityAndTotal } from '../../assets/functions';
 import { setCart, setTotalQuantityAndTotal } from '../../redux/slices/cartSlice';
 
 const GET_PRODUCT_BY_ID = gql`
@@ -43,7 +42,6 @@ class ProductDescriptionPage extends React.Component {
 
     handleData = async (data) => {
         this.props.setCart(data);
-
     }
 
     render() {
@@ -52,7 +50,10 @@ class ProductDescriptionPage extends React.Component {
             <Query query={GET_PRODUCT_BY_ID} variables={{id: match.params.id}}>
                 {({data, loading, error}) => {
                     if(loading) return null
-                    if(error) return (`Error ${error.message}`)
+                    if(error) {
+                        console.log('Product Description', error.message)
+                        this.props.history.push('/*');
+                    }
                     if(data) {
                         return(
                             <div className="product-description-page">

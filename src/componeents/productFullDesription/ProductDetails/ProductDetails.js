@@ -20,7 +20,7 @@ class ProductDetails extends React.Component {
           },
           reset: false,
           componentStyle: this.props.componentStyle,
-          attributesCount: 0
+          attributeFillStatus: false
         };
       }
 
@@ -28,9 +28,10 @@ class ProductDetails extends React.Component {
         const indexInAttributes = this.props.product.attributes.findIndex(item => item.id === dataFromChild.id)
         const currentAttributesState = this.props.product.attributes;
         currentAttributesState[indexInAttributes] = dataFromChild;
-        this.setState(prevState => ({attributesCount: this.state.attributesCount+=1, product: {...prevState.product, attributes: currentAttributesState}}));
-        // console.log('attr data in details',this.state.product.attributes)
-    }
+        await    this.setState(prevState => ({attributesCount: this.state.attributesCount+=1, product: {...prevState.product, attributes: currentAttributesState}}));
+        const attributesCount = this.state.product.attributes.filter(attr => attr.selected ? true : false).length;
+        this.setState({attributeFillStatus: attributesCount === this.props.product.attributes.length ? true : false})
+}
 
     handleAddingCard = async (brand, name, prices, id, images) => {
         await this.setState(prevState => ({
@@ -48,10 +49,9 @@ class ProductDetails extends React.Component {
             product: {
                 ...prevState.product,
                 attributes: [],
-                quantity: 0
             },
             reset : true,
-            attributesCount: 0}))
+            attributeFillStatus: false}))
             this.setState({reset: false})
     }
     
@@ -60,32 +60,30 @@ class ProductDetails extends React.Component {
         return(
             <div className="product-details-container">
                 <ProductImages images={gallery} id={id}/>
-            <div className="product-details">
-                
-                
-                <div className="product-details-headings">
-                    <h1 className={`product-details-headings-brand`}>{brand}</h1>
-                    <h2 className={`product-details-headings-name`}>{name}</h2>
-                </div>
-                {!attributes[0] ? '' :
-                    <ul className="product-details-attributes-list">
-                    {attributes.map((attribute, index) => 
-                         <li className="product-details-attributes-list-item" key={`${index} ${id}`}>
-                            <ProductAttributes attribute={attribute} reset={this.state.reset} componentStyle={this.state.componentStyle}
-                            sendAttributeChoiceToParent={this.handleChildAttributeData}/>  
-                        </li>
-                    )} 
-                    </ul>}
-                <div className="product-details-price">
-                    <ProductPrice prices={prices} componentStyle={this.state.componentStyle}/>
-                </div>
-                <button className="product-details-button-addCard"
-                disabled={!inStock || this.state.attributesCount !== attributes.length}
-                onClick={() => this.handleAddingCard(name, brand, prices, id, gallery)}>
-                    add to card 
-                </button>
-                <div className="product-details-description"
-                dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(description)}} />
+                <div className="product-details">
+                    <div className="product-details-headings">
+                        <h1 className={`product-details-headings-brand`}>{brand}</h1>
+                        <h2 className={`product-details-headings-name`}>{name}</h2>
+                    </div>
+                    {!attributes[0] ? '' :
+                        <ul className="product-details-attributes-list">
+                        {attributes.map((attribute, index) => 
+                            <li className="product-details-attributes-list-item" key={`${index} ${id}`}>
+                                <ProductAttributes attribute={attribute} reset={this.state.reset} componentStyle={this.state.componentStyle}
+                                sendAttributeChoiceToParent={this.handleChildAttributeData}/>  
+                            </li>
+                        )} 
+                        </ul>}
+                    <div className="product-details-price">
+                        <ProductPrice prices={prices} componentStyle={this.state.componentStyle}/>
+                    </div>
+                    <button className="product-details-button-addCard"
+                    disabled={!inStock || !this.state.attributeFillStatus}
+                    onClick={() => this.handleAddingCard(name, brand, prices, id, gallery)}>
+                        add to card 
+                    </button>
+                    <div className="product-details-description"
+                    dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(description)}} />
                 </div>
             </div>
         )

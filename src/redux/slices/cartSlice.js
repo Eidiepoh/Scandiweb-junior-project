@@ -59,7 +59,6 @@ const cartSlice = createSlice({
         })
         if(selectedAttr.selected === changedProperty.selected) return
         
-        // console.log(JSON.parse(JSON.stringify()))
         
         state.cartData.map((item, index) => {
 
@@ -80,15 +79,12 @@ const cartSlice = createSlice({
               } else {
                 // if this kind of object already exists, increase its quantity
                 state.cartData[tempCopyIndex].quantity += state.cartData[index].quantity;
-                // console.log(JSON.parse(JSON.stringify(state.cartData[index])))
                 state.cartData[index].quantity = 0;
                 state.cartData.splice(index,1)
-                // console.log(JSON.parse(JSON.stringify(state.cartData[index])))
               }
             }
         });
         // clear cartData from products with 0 quantity
-        state.cartData = state.cartData.filter(item => item.quantity > 0)
         localStorage.setItem('cart',JSON.stringify(state.cartData));
       },
 
@@ -108,8 +104,6 @@ const cartSlice = createSlice({
       },
       
       setTotalQuantityAndTotal: (state, action) => {
-        // console.log(JSON.parse(JSON.stringify(state.quantity)))
-        // console.log(JSON.parse(JSON.stringify(action.payload)))
         state.quantity = action.payload[0];
         state.total = action.payload[1];
       }

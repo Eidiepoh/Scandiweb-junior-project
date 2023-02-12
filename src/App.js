@@ -3,7 +3,8 @@ import Header from './componeents/header/Header';
 import ProductListPage from './pages/ProductListPage/ProductListPage';
 import ProductDescriptionPage from './pages/ProductDescriptionPage/ProductDescriptionPage';
 import CartPage from './pages/CartPage/CartPage';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import ErrorComponent from './componeents/ErrorComponent/ErrorComponent';
+import { Route, Switch } from 'react-router-dom';
 import './App.css'
 
 class App extends React.Component {
@@ -23,9 +24,11 @@ class App extends React.Component {
             <Route exact path="/category/:name" >
                 <ProductListPage/>
             </Route>
-            
             <Route exact path="/cart">
                 <CartPage/>
+            </Route>
+            <Route>
+                 <ErrorComponent />
             </Route>
         </Switch>
     </div>

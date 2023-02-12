@@ -2,12 +2,14 @@
     display: flex;
     flex-flow: column nowrap;
     gap: 8px;
+    
 }
 
 .attribute-name.large {
     font-weight: 700;
     font-size: 18px;
     line-height: 18px;
+    font-family: 'Roboto Condensed', sans-serif;
 }
 
 .attribute-name.mini {
@@ -28,7 +30,7 @@
     letter-spacing: 0.05em;
     background: #FFFFFF;
     border: 1px solid #1D1F22;
-
+    font-family: 'Source Sans Pro', sans-serif;
 }
 
 .attribute-list-item.large {

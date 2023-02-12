@@ -1,13 +1,15 @@
 import React from 'react';
+import './ProductCardList.css';
 import ProductCard from '../ProductCard/ProductCard';
+import { withRouter } from 'react-router-dom';
 import { gql } from 'graphql-tag';
 import { Query } from '@apollo/client/react/components';
-import './ProductCardList.css';
 import { Link } from 'react-router-dom';
 
 const GET_PRODUCT_BY_TYPE = gql`
 query getProducts($category : CategoryInput){
     category(input: $category){
+        name
         products {
          name
          gallery
@@ -32,9 +34,10 @@ class ProductCardList extends React.Component {
             <Query query={GET_PRODUCT_BY_TYPE} variables={{category: {title: this.props.productType}}}>
                 {({data, loading, error}) => {
                     if(loading) return null
-                    if(error) return (`Error ${error.message}`)
+                    if(error) {
+                        this.props.history.push('/*');
+                    }
                     if(data) {
-                        // console.log('data',data)
                         return(
                            <div className="product-list-page-listing">
                                 <h2 className="product-list-page-heading">{this.props.productType}</h2>
@@ -57,4 +60,4 @@ class ProductCardList extends React.Component {
     }
 }
 
-export default ProductCardList;
+export default withRouter(ProductCardList);

@@ -39,7 +39,6 @@ class AddProductInstantly extends React.Component {
             instaCartData.attributes.map(item => 
                 item.selected ? '' : item.selected = item.items[0].id)
         }
-        console.log(instaCartData)
         this.props.setCart(instaCartData)
     }
 

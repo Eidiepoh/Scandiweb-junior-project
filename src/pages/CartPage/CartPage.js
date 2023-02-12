@@ -9,8 +9,6 @@ class CartPage extends React.Component {
         total : ''
     }
 
-    
-
     render() {
         return (
             <div className="product-cart-page">

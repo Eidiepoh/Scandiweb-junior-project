@@ -5,7 +5,6 @@ import AddProductInstantly from '../AddProductInstantly/AddProductInstantly';
 
 class ProductCard extends React.Component {
     render () {
-    // console.log('aliosha 223',this.props)
 
         return (
             <div className="product-container">

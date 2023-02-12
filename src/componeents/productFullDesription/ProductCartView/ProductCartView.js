@@ -1,13 +1,10 @@
 import React from 'react';
 import './ProductCartView.css';
-import { gql } from 'graphql-tag';
-import { Query } from '@apollo/client/react/components';
 import { connect } from 'react-redux';
 import { setQuantityChanges, setAttributeChanges } from '../../../redux/slices/cartSlice';
 import ProductPrice from '../../product/ProductPrice/ProductPrice';
 import ProductAttributes from '../ProductAttributes/ProductAttributes';
 import ProductCartImages from '../ProductCartimages/ProductCartImages';
-
 
 class ProductCartView extends React.Component {
     state = {
@@ -23,15 +20,17 @@ class ProductCartView extends React.Component {
     handleCartDataQuantityIncrement = async (quantity) => {
         await this.setState({quantity: quantity += 1});
         await this.props.setQuantityChanges([this.props.product, this.state.quantity]);
+        this.props.triggerQuantityAndTotalUpdate();
     }
 
     handleCartDataQuantityDecrement = async (quantity) => {
         await this.setState({quantity: quantity -= 1});
         await this.props.setQuantityChanges([this.props.product, this.state.quantity]);
+        this.props.triggerQuantityAndTotalUpdate();
     }
 
     render() {
-        const { name, brand, id, prices, attributes, images, quantity } = this.props.product
+        const { name, brand, prices, attributes, images, quantity } = this.props.product
             return(
                 <div className={`product-cart-view-container ${this.state.componentStyle}`}>
                     <div className="product-cart-view-topLine"
@@ -52,8 +51,8 @@ class ProductCartView extends React.Component {
                             <div>
                                 {!attributes[0] ? '' :
                                 <ul className={`product-cart-view-attributes-list ${this.state.componentStyle}`}>
-                                    {attributes.map((attribute, index) => 
-                                        <li className={`product-cart-view-attributes-list-item ${this.state.componentStyle}`} key={`${index} ${id}`}>
+                                    {attributes.map((attribute) => 
+                                        <li className={`product-cart-view-attributes-list-item ${this.state.componentStyle}`} key={`${attribute.id} ${attribute.selected}`}>
                                             <ProductAttributes 
                                             componentStyle={this.state.componentStyle}
                                             attribute={attribute}  

@@ -25,7 +25,6 @@ class ProductCart extends React.Component {
     render() {
         return (
             <ul className={`cart-page-list ${this.state.componentStyle}`}>
-            {/* {console.log('inPorudctCart',this.props.cartSlice.cartData)} */}
                 {this.props.cartSlice.cartData.map((product, index) => 
                 <li className="cart-page-list-item" key={`${index} ${product.name}`}>
                     <ProductCartView 

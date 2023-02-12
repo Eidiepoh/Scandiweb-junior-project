@@ -20,7 +20,9 @@ class CurrencySwitch extends React.Component {
             <Query query={GET_CURRENCIES}>
             {({data, loading, error}) => {
                 if(loading) return null;
-                if(error) return (`Error ${error.message}`);
+                if(error) {
+                    console.log('CurrencySwitch error', error.message);
+                }
                 if(data) {
                     return(
                         <ul className="currencies-list">
