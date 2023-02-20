@@ -22,7 +22,7 @@ query Product($id: String!) {
     }
   }
 `;
-class AddProductInstantly extends React.Component {
+class AddProductInstantly extends React.PureComponent {
 
     addCartWithFirstAttributes = (event, attributes) => {
         event.preventDefault()
