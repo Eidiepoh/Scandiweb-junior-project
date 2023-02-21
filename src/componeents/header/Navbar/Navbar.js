@@ -13,7 +13,7 @@ const GET_NAVBAR_CATEGORIES = gql`
 `;
 
 class Navbar extends React.Component {
-    
+
     render() {
         return(
             <div className="navbar">
@@ -43,5 +43,6 @@ class Navbar extends React.Component {
         )
     }
 }
+
 
 export default Navbar;
