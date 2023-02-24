@@ -105,6 +105,10 @@
     height: 190px;
 }
 
+.product-cart-view-right-quantity-button {
+    cursor: pointer;
+}
+
 .product-cart-view-right-quantity-button.large {
     width: 45px;
     height: 45px;

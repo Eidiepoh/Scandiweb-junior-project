@@ -3,61 +3,64 @@ import './ProductDetails.css';
 import ProductPrice from '../../product/ProductPrice/ProductPrice';
 import ProductAttributes from '../ProductAttributes/ProductAttributes';
 import ProductImages from '../../product/ProductImages/ProductImages';
+import ProductDetailsBottom from './ProductDetailsBottom';
 import DOMPurify from 'dompurify';
 
-class ProductDetails extends React.Component {
+class ProductDetails extends React.PureComponent {
     constructor(props) {
         super(props);
+        const { brand, name, attributes, prices, id } = props.product;
         this.state = {
-          product: {
-            brand: '',
-            name: '',
-            prices: '',
-            id: '',
-            attributes: [],
-            quantity: 1,
-            images: []
-          },
-          reset: false,
-          componentStyle: this.props.componentStyle,
-          attributeFillStatus: false
+            product: {
+                brand,
+                name,
+                prices,
+                id,
+                attributes,
+                quantity: 1,
+                images: []
+            },
+            reset: false,
+            componentStyle: props.componentStyle,
         };
-      }
+    }
 
     handleChildAttributeData = async dataFromChild => {
         const indexInAttributes = this.props.product.attributes.findIndex(item => item.id === dataFromChild.id)
         const currentAttributesState = this.props.product.attributes;
         currentAttributesState[indexInAttributes] = dataFromChild;
-        await    this.setState(prevState => ({attributesCount: this.state.attributesCount+=1, product: {...prevState.product, attributes: currentAttributesState}}));
-        const attributesCount = this.state.product.attributes.filter(attr => attr.selected ? true : false).length;
-        this.setState({attributeFillStatus: attributesCount === this.props.product.attributes.length ? true : false})
-}
+        this.setState(prevState => ({product: {...prevState.product, attributes: currentAttributesState}}));
+    }
 
-    handleAddingCard = async (brand, name, prices, id, images) => {
-        await this.setState(prevState => ({
-            product: {
-                ...prevState.product, 
+
+    handleAddingCard =  (name, brand, prices, id, images) => {
+        
+        this.props.handleAddingCard({ 
+                attributes: this.state.product.attributes,
+                prices: this.state.product.prices,
+                quantity: this.state.product.quantity,
                 brand: brand, 
                 name: name, 
                 prices: prices, 
                 id: id,
-                images: images}}));
-        
-        this.props.handleAddingCard(this.state.product);
+                images: images
+        });
 
-        await  this.setState(prevState => ({
+          this.setState(prevState => ({
             product: {
                 ...prevState.product,
                 attributes: [],
             },
-            reset : true,
-            attributeFillStatus: false}))
+            reset : true}))
             this.setState({reset: false})
     }
     
     render() {
-        const {brand, name, attributes, prices, description, inStock, id, gallery} = this.props.product;
-        return(
+        const { brand, name, attributes, inStock, id, gallery } = this.props.product;
+        const { reset, componentStyle } = this.state;
+        const isAttributesSelected = attributes.every(attribute => attribute.selected !== undefined && attribute.selected !== null);
+        
+        return (
             <div className="product-details-container">
                 <ProductImages images={gallery} id={id}/>
                 <div className="product-details">
@@ -65,29 +68,29 @@ class ProductDetails extends React.Component {
                         <h1 className={`product-details-headings-brand`}>{brand}</h1>
                         <h2 className={`product-details-headings-name`}>{name}</h2>
                     </div>
-                    {!attributes[0] ? '' :
-                        <ul className="product-details-attributes-list">
-                        {attributes.map((attribute, index) => 
-                            <li className="product-details-attributes-list-item" key={`${index} ${id}`}>
-                                <ProductAttributes attribute={attribute} reset={this.state.reset} componentStyle={this.state.componentStyle}
-                                sendAttributeChoiceToParent={this.handleChildAttributeData}/>  
-                            </li>
-                        )} 
-                        </ul>}
-                    <div className="product-details-price">
-                        <ProductPrice prices={prices} componentStyle={this.state.componentStyle}/>
-                    </div>
-                    <button className="product-details-button-addCard"
-                    disabled={!inStock || !this.state.attributeFillStatus}
-                    onClick={() => this.handleAddingCard(name, brand, prices, id, gallery)}>
-                        add to card 
-                    </button>
-                    <div className="product-details-description"
-                    dangerouslySetInnerHTML={{__html: DOMPurify.sanitize(description)}} />
+                    {attributes.length > 0 && (
+                    <ul className="product-details-attributes-list">
+                        {attributes.map((attribute, index) => (
+                        <li className="product-details-attributes-list-item" key={`${index} ${id}`}>
+                            <ProductAttributes 
+                                attribute={attribute} 
+                                reset={reset} 
+                                componentStyle={componentStyle}
+                                sendAttributeChoiceToParent={this.handleChildAttributeData}/>
+                        </li>
+                        ))}
+                    </ul>
+                    )}
+                    <ProductDetailsBottom 
+                    componentStyle={componentStyle}
+                    inStock={inStock}
+                    isAttributesSelected={isAttributesSelected}
+                    product={this.props.product}
+                    triggerAddingCard={this.handleAddingCard}/>
                 </div>
             </div>
-        )
-    }
+        );
+      }
 }
 
 export default ProductDetails;

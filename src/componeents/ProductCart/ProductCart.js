@@ -5,31 +5,35 @@ import { setTotalQuantityAndTotal } from '../../redux/slices/cartSlice';
 import ProductCartView from '../productFullDesription/ProductCartView/ProductCartView';
 import { updateCartSliceQuantityAndTotal } from '../../assets/functions';
 
-class ProductCart extends React.Component {
-    state = {
-        componentStyle : this.props.componentStyle,
-        quantity : '',
-        total: ''
-    }
-    
+class ProductCart extends React.PureComponent {
+
     componentDidMount() {
         this.setQuantityAndTotalInSlice();
     }
-    
-    setQuantityAndTotalInSlice = async() => {
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.cartSlice.cartData !== this.props.cartSlice.cartData) {
+            this.setQuantityAndTotalInSlice();
+        }
+    }
+
+    setQuantityAndTotalInSlice = () => {
         const { quantity, total } = updateCartSliceQuantityAndTotal(this.props.cartSlice.cartData, this.props.currencySlice.currency)
-        await     this.setState({quantity: quantity, total: total})
-        this.props.setTotalQuantityAndTotal([this.state.quantity, this.state.total])
+        console.log(quantity, total)
+        this.props.setTotalQuantityAndTotal([quantity, total]);
     }
 
     render() {
+        const { componentStyle } = this.props;
+        const { cartData } = this.props.cartSlice;
+
         return (
-            <ul className={`cart-page-list ${this.state.componentStyle}`}>
-                {this.props.cartSlice.cartData.map((product, index) => 
+            <ul className={`cart-page-list ${componentStyle}`}>
+                {cartData.map((product, index) => 
                 <li className="cart-page-list-item" key={`${index} ${product.name}`}>
                     <ProductCartView 
                     product={product} 
-                    componentStyle={this.state.componentStyle}
+                    componentStyle={componentStyle}
                     triggerQuantityAndTotalUpdate={this.setQuantityAndTotalInSlice}/>
                 </li>)}
             </ul>
@@ -42,6 +46,8 @@ const mapStateToProps = state => ({
     currencySlice: state.currency
 })
 
-const mapDispatchToProps = { setTotalQuantityAndTotal }
+const mapDispatchToProps = dispatch => ({
+    setTotalQuantityAndTotal: (quantityAndTotal) => dispatch(setTotalQuantityAndTotal(quantityAndTotal))
+})
 
-export default connect(mapStateToProps,mapDispatchToProps)(ProductCart);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCart);

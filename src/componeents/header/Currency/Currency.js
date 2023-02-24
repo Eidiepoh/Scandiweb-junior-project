@@ -1,9 +1,10 @@
 import React from 'react';
 import './Currency.css';
+import { withRouter } from 'react-router-dom';
 import CurrencySwitch from '../CurrencySwitch/CurrencySwitch';
 import { connect } from 'react-redux';
 
-class Currency extends React.Component {
+class Currency extends React.PureComponent {
 
       state = { showList: false, showCart: false };
       listRef = React.createRef();
@@ -21,6 +22,12 @@ class Currency extends React.Component {
     componentWillUnmount() {
         document.removeEventListener('mousedown', this.handleClickOutside);
     }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.location.pathname !== prevProps.location.pathname) {
+          this.setState({ showList: false });
+        }
+      }
 
     toggleList = () => {
         this.setState({showList : !this.state.showList})
@@ -61,4 +68,4 @@ const mapStateToProps = state => {
     return state.currency;
   }
 
-export default connect(mapStateToProps)(Currency);
+export default connect(mapStateToProps)(withRouter(Currency));

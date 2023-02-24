@@ -1,10 +1,11 @@
 import React from 'react';
 import './CartHeader.css';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import ProductCart from '../../ProductCart/ProductCart';
 
-class CartHeader extends React.Component {
+class CartHeader extends React.PureComponent {
 
       state = { showCart: false };
       cartRef = React.createRef();
@@ -14,6 +15,7 @@ class CartHeader extends React.Component {
           this.setState({ showCart: false });
         }
       }
+
     
     componentDidMount() {
         document.addEventListener('mousedown', this.handleClickOutside);
@@ -23,6 +25,11 @@ class CartHeader extends React.Component {
         document.removeEventListener('mousedown', this.handleClickOutside);
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.location.pathname !== prevProps.location.pathname) {
+          this.setState({ showCart: false });
+        }
+      }
     render() {
         return(
             <div>
@@ -67,4 +74,4 @@ const mapStateToProps = state => ({
     currencySlice: state.currency
 })
 
-export default connect(mapStateToProps)(CartHeader);
+export default connect(mapStateToProps)(withRouter(CartHeader));

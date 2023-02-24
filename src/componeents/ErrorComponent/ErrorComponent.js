@@ -1,7 +1,7 @@
 import React from 'react';
 import './ErrorComponent.css';
 
-class ErrorComponent extends React.Component {
+class ErrorComponent extends React.PureComponent {
     render() {
         return(
             <div className="error-component">

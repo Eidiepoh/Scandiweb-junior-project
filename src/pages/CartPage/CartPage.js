@@ -3,53 +3,42 @@ import './CartPage.css';
 import ProductCart from '../../componeents/ProductCart/ProductCart';
 import { connect } from 'react-redux';
 
-class CartPage extends React.Component {
-    state = {
-        quantity : '',
-        total : ''
+class CartPage extends React.PureComponent {
+    
+    renderPriceListItem(label, value) {
+        const { currency } = this.props.currencySlice;
+
+        return (
+            <li className="product-cart-page-price-list-item">
+                <div className="product-cart-page-price-list-item-left">
+                    {label}
+                </div>
+                <div className="product-cart-page-price-list-item-right">
+                    <span>{label === 'Quantity:' ? '' : currency}</span>
+                    <span>{label === 'Quantity:' ? value : value.toFixed(2)}</span>
+                </div>
+            </li>
+        );
     }
 
-    render() {
-        return (
-            <div className="product-cart-page">
-                <h1 className="product-cart-page-heading">cart</h1>
-                <div className="product-cart-page-cart">
-                    <ProductCart componentStyle="large"/>
-                </div>
-                <ul className="product-cart-page-price-list">
-                    <li className="product-cart-page-price-list-item">
-                        <div className="product-cart-page-price-list-item-left">
-                            Tax 21%:
-                        </div>
-                        <div className="product-cart-page-price-list-item-right">
-                            <span>{this.props.currencySlice.currency}</span>
-                            <span>{(this.props.cartSlice.total * 21/100).toFixed(2)}</span>
-                        </div>
-                    </li>
-                    <li className="product-cart-page-price-list-item">
-                        <div className="product-cart-page-price-list-item-left">
-                            Quantity:
-                        </div>
-                        <div className="product-cart-page-price-list-item-right">
-                            <span>{this.props.cartSlice.quantity}</span>
-                        </div>
-                    </li>
-                    <li className="product-cart-page-price-list-item">
-                        <div className="product-cart-page-price-list-item-left">
-                            Total: 
-                        </div>
-                        <div className="product-cart-page-price-list-item-right">
-                        <span>{this.props.currencySlice.currency}</span>
-                        <span>{this.props.cartSlice.total.toFixed(2)}</span>
-                        </div>
-                    </li>
-                </ul>
-                <button className="product-cart-page-button-order">
-                    order
-                </button>
-            </div>
-        )
-    }
+  render() {
+    const { cartSlice } = this.props;
+
+    return (
+      <div className="product-cart-page">
+        <h1 className="product-cart-page-heading">Cart</h1>
+        <div className="product-cart-page-cart">
+          <ProductCart componentStyle="large" />
+        </div>
+        <ul className="product-cart-page-price-list">
+          {this.renderPriceListItem('Tax 21%:', cartSlice.total * 0.21)}
+          {this.renderPriceListItem('Quantity:', cartSlice.quantity)}
+          {this.renderPriceListItem('Total:', cartSlice.total)}
+        </ul>
+        <button className="product-cart-page-button-order">Order</button>
+      </div>
+    );
+  }
 }
 
 const mapStateToProps = state => ({

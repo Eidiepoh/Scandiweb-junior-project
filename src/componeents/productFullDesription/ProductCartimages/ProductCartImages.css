@@ -12,9 +12,7 @@
     height: 190px;
 }
 
-.product-card-images-item {
-    object-fit: contain
-}
+
 
 .product-card-images-item.large {
     width: 220px;

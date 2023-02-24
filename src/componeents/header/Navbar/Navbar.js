@@ -1,18 +1,12 @@
 import React from 'react';
 import './Navbar.css';
 import { NavLink } from 'react-router-dom';
-import { gql } from 'graphql-tag';
+import { GET_NAVBAR_CATEGORIES } from '../../../assets/queries';
 import { Query } from '@apollo/client/react/components';
 
-const GET_NAVBAR_CATEGORIES = gql`
-    {
-        categories {
-        name
-    }
-  }
-`;
 
-class Navbar extends React.Component {
+
+class Navbar extends React.PureComponent {
 
     render() {
         return(

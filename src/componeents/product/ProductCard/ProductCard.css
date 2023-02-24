@@ -25,9 +25,7 @@
     padding: 16px;
 }
 
-.product-container-list-item img {
-    object-fit: cover;
-}
+
 
 .product-container-list-item-description {
     display: flex;

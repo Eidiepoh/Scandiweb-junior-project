@@ -2,41 +2,31 @@ import React from 'react';
 import './ProductListPage.css';
 import ProductCardList from '../../componeents/product/ProductCardList/ProductCardList';
 import { withRouter } from 'react-router-dom';
-import { gql } from 'graphql-tag';
+import { GET_NAVBAR_CATEGORIES } from '../../assets/queries';
 import { Query } from '@apollo/client/react/components';
 import { Redirect } from 'react-router-dom';
 
-const GET_NAVBAR_CATEGORIES = gql`
-    {
-        categories {
-        name
-    }
-  }
-`;
-
-class ProductListPage extends React.Component {
+class ProductListPage extends React.PureComponent {
 
     render () {
         const { match } = this.props;
-        console.log(!match.params.name)
-        if(!match.params.name) {
+
+        if(match.params.name) {
+            return <ProductCardList productType={match.params.name}/>
+        } else {
            return(
             <Query query={GET_NAVBAR_CATEGORIES}>
             {({data, loading, error}) => {
                 if(loading) return null
                 if(error) return (`Error ${error.message}`)
                 if(data) {
-                return    <Redirect to={`/category/${data.categories[0].name}`}/>
+                    const categoryName = data.categories[0].name;
+                    return <Redirect to={`/category/${categoryName}`} />;
                 }
             }}
-        </Query>
+            </Query>
            )
         }
-        if(match.params.name) {
-            return(
-                <ProductCardList productType={match.params.name}/>
-            )
-        } 
     }
 }
 

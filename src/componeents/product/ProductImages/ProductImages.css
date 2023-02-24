@@ -13,7 +13,6 @@
     gap: 40px;
     list-style: none;
     height: 511px;
-    overflow: scroll;
 }
 
 .product-description-images-list-item img{
@@ -22,6 +21,6 @@
 }
 
 .product-description-images-main img{
-    width: 610px;
-    height: 511px;
+    max-width: 610px;
+    max-height: 511px;
 }

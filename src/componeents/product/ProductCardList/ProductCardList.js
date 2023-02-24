@@ -2,45 +2,26 @@ import React from 'react';
 import './ProductCardList.css';
 import ProductCard from '../ProductCard/ProductCard';
 import { withRouter } from 'react-router-dom';
-import { gql } from 'graphql-tag';
+import { GET_PRODUCT_BY_TYPE } from '../../../assets/queries';
 import { Query } from '@apollo/client/react/components';
 import { Link } from 'react-router-dom';
 
-const GET_PRODUCT_BY_TYPE = gql`
-query getProducts($category : CategoryInput){
-    category(input: $category){
-        name
-        products {
-         name
-         gallery
-         id
-         inStock
-         prices {
-            amount
-            currency {
-            label
-             symbol
-           }
-         }
-       } 
-       }
-}
-`;
 
-class ProductCardList extends React.Component {
 
+class ProductCardList extends React.PureComponent {
     render () {
+        const { productType, history } = this.props
         return (
-            <Query query={GET_PRODUCT_BY_TYPE} variables={{category: {title: this.props.productType}}}>
+            <Query query={GET_PRODUCT_BY_TYPE} variables={{category: {title: productType}}}>
                 {({data, loading, error}) => {
                     if(loading) return null
                     if(error) {
-                        this.props.history.push('/*');
+                        history.push('/*');
                     }
                     if(data) {
                         return(
-                           <div className="product-list-page-listing">
-                                <h2 className="product-list-page-heading">{this.props.productType}</h2>
+                               <div className="product-list-page-listing">
+                                <h2 className="product-list-page-heading">{productType}</h2>
                                 <ul className="product-card-list">
                                 {data.category.products.map(item =>
                                 <li key={item.id} >
@@ -50,7 +31,7 @@ class ProductCardList extends React.Component {
                                 </li>
                             ) 
                         }
-                        </ul>
+                                </ul>
                            </div>
                         )
                     }
@@ -60,4 +41,4 @@ class ProductCardList extends React.Component {
     }
 }
 
-export default withRouter(ProductCardList);
+export default React.memo(withRouter(ProductCardList));

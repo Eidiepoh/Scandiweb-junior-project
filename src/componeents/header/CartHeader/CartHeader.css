@@ -20,10 +20,7 @@
     right: -11px;
 }
 
-.product-cart-mini-container {
-    max-height: 408px;
-    overflow: scroll;
-}
+
 
 .cart-products-listing {
     width: 325px;
@@ -103,6 +100,7 @@
     font-size: 14px;
     line-height: 17px;
     white-space: nowrap;
+    cursor: pointer;
 }
 
 .cart-header-button.view-bag {

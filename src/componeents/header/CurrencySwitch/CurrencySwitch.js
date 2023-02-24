@@ -1,20 +1,12 @@
 import React from 'react';
 import './CurrencySwitch.css';
-import { gql } from 'graphql-tag';
+import { GET_CURRENCIES } from '../../../assets/queries'
 import { Query } from '@apollo/client/react/components';
 import { setCurrency } from '../../../redux/slices/currencySlice';
 import { connect } from 'react-redux';
 
-const GET_CURRENCIES = gql `
-    {
-            currencies {
-            label
-            symbol
-            }
-    }
-`;
 
-class CurrencySwitch extends React.Component {
+class CurrencySwitch extends React.PureComponent {
     render() {
         return(
             <Query query={GET_CURRENCIES}>

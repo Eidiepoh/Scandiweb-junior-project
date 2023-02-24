@@ -7,7 +7,7 @@ import ErrorComponent from './componeents/ErrorComponent/ErrorComponent';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import './App.css'
 
-class App extends React.Component {
+class App extends React.PureComponent {
 
   render() {
     
