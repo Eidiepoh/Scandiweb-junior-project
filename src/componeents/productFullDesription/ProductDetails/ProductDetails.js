@@ -1,10 +1,8 @@
 import React from 'react';
 import './ProductDetails.css';
-import ProductPrice from '../../product/ProductPrice/ProductPrice';
 import ProductAttributes from '../ProductAttributes/ProductAttributes';
 import ProductImages from '../../product/ProductImages/ProductImages';
 import ProductDetailsBottom from './ProductDetailsBottom';
-import DOMPurify from 'dompurify';
 
 class ProductDetails extends React.PureComponent {
     constructor(props) {
@@ -25,7 +23,7 @@ class ProductDetails extends React.PureComponent {
         };
     }
 
-    handleChildAttributeData = async dataFromChild => {
+    handleChildAttributeData =  dataFromChild => {
         const indexInAttributes = this.props.product.attributes.findIndex(item => item.id === dataFromChild.id)
         const currentAttributesState = this.props.product.attributes;
         currentAttributesState[indexInAttributes] = dataFromChild;
@@ -37,7 +35,6 @@ class ProductDetails extends React.PureComponent {
         
         this.props.handleAddingCard({ 
                 attributes: this.state.product.attributes,
-                prices: this.state.product.prices,
                 quantity: this.state.product.quantity,
                 brand: brand, 
                 name: name, 
@@ -54,10 +51,30 @@ class ProductDetails extends React.PureComponent {
             reset : true}))
             this.setState({reset: false})
     }
-    
+
+    renderProductAttributes = () => {
+        const { attributes } = this.props.product;
+        const { reset, componentStyle } = this.state;
+        return (
+            attributes.length > 0 && (
+                <ul className="product-details-attributes-list">
+                    {attributes.map((attribute, index) => (
+                        <li className="product-details-attributes-list-item" key={`${index} ${attribute.id}`}>
+                            <ProductAttributes 
+                                attribute={attribute} 
+                                reset={reset} 
+                                componentStyle={componentStyle}
+                                sendAttributeChoiceToParent={this.handleChildAttributeData}
+                            />
+                        </li>
+                    ))}
+                </ul>
+            )
+        );
+    }
     render() {
         const { brand, name, attributes, inStock, id, gallery } = this.props.product;
-        const { reset, componentStyle } = this.state;
+        const { componentStyle } = this.state;
         const isAttributesSelected = attributes.every(attribute => attribute.selected !== undefined && attribute.selected !== null);
         
         return (
@@ -68,19 +85,7 @@ class ProductDetails extends React.PureComponent {
                         <h1 className={`product-details-headings-brand`}>{brand}</h1>
                         <h2 className={`product-details-headings-name`}>{name}</h2>
                     </div>
-                    {attributes.length > 0 && (
-                    <ul className="product-details-attributes-list">
-                        {attributes.map((attribute, index) => (
-                        <li className="product-details-attributes-list-item" key={`${index} ${id}`}>
-                            <ProductAttributes 
-                                attribute={attribute} 
-                                reset={reset} 
-                                componentStyle={componentStyle}
-                                sendAttributeChoiceToParent={this.handleChildAttributeData}/>
-                        </li>
-                        ))}
-                    </ul>
-                    )}
+                    {this.renderProductAttributes()}
                     <ProductDetailsBottom 
                     componentStyle={componentStyle}
                     inStock={inStock}

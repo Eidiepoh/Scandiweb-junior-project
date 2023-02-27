@@ -2,13 +2,14 @@ import React from 'react';
 import './ProductAttributes.css';
 
 class ProductAttributes extends React.PureComponent {
-    state = {
-        selectedItem : '',
-    }
+    constructor(props) {
+        super(props);
+        this.state = {
+            selectedItem : this.props.attribute.selected,
+            changeStatus: this.props.attribute.selected ? true : false
+        };
+      }
 
-    componentDidMount() {
-        this.setState({selectedItem: this.props.attribute.selected})
-    }
     
     componentDidUpdate(prevProps) {
         const { attribute, reset } = this.props;
@@ -30,9 +31,43 @@ class ProductAttributes extends React.PureComponent {
         this.props.sendAttributeChoiceToParent(reDeclaredAttributes);
     }
 
+    renderColorOption = (attributeType, option) => {
+        const { selectedItem } = this.state;
+        const { componentStyle } = this.props;
+
+        return(
+            <li
+                className={`color-attribute ${option.id === selectedItem ? 'color-highlighted' : ''}`}
+                    key={option.id}
+                    onClick={() => this.state.changeStatus ? null : this.sendAttributeChoiceToParent([attributeType, option.id])}>
+                <div
+                    className={`attribute-list-color ${componentStyle}`}
+                    style={{
+                        background: option.value,
+                        border: option.id === 'White' ? 'solid 0.5px black' : '',
+                    }}></div>
+            </li>
+        )
+    }
+
+    renderAttributeOption = (attributeType, option) => {
+        const { selectedItem } = this.state;
+        const { componentStyle } = this.props;
+
+        return (
+            <li
+                className={`${option.id === selectedItem ? 'attribute-highlighted' : ''}`}
+                key={option.id}
+                onClick={() => this.state.changeStatus ? null : this.sendAttributeChoiceToParent([attributeType, option.id])}>
+                <div className={`attribute-list-item ${componentStyle}`}>
+                    {option.value}
+                </div>
+            </li>
+        )
+    }
+
     render() {
         const { name, items: attributeOptions, id: attributeType } = this.props.attribute;
-        const { selectedItem } = this.state;
         const { componentStyle } = this.props;
 
         return (
@@ -40,33 +75,9 @@ class ProductAttributes extends React.PureComponent {
                 <h2 className={`attribute-name ${componentStyle}`}>{name}:</h2>
                 <ul className={`attribute-list ${componentStyle}`}>
                     {attributeOptions.map((option) => {
-                        if (attributeType === 'Color') {
-                            return (
-                                <li
-                                    className={`color-attribute ${
-                                        option.id === selectedItem ? 'color-highlighted' : ''}`}
-                                        key={option.id}
-                                        onClick={() => this.sendAttributeChoiceToParent([attributeType, option.id])}>
-                                    <div
-                                        className={`attribute-list-color ${componentStyle}`}
-                                        style={{
-                                            background: option.value,
-                                            border: option.id === 'White' ? 'solid 0.5px black' : '',
-                                        }}></div>
-                                </li>
-                            );
-                        } else {
-                            return (
-                                <li
-                                    className={`${option.id === selectedItem ? 'attribute-highlighted' : ''}`}
-                                    key={option.id}
-                                    onClick={() => this.sendAttributeChoiceToParent([attributeType, option.id])}>
-                                    <div className={`attribute-list-item ${componentStyle}`}>
-                                        {option.value}
-                                    </div>
-                                </li>
-                            );
-                        }
+                        return attributeType === 'Color' 
+                        ? this.renderColorOption(attributeType, option)
+                        : this.renderAttributeOption(attributeType, option);
                     })}
                 </ul>
             </div>

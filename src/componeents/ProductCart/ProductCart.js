@@ -19,7 +19,6 @@ class ProductCart extends React.PureComponent {
 
     setQuantityAndTotalInSlice = () => {
         const { quantity, total } = updateCartSliceQuantityAndTotal(this.props.cartSlice.cartData, this.props.currencySlice.currency)
-        console.log(quantity, total)
         this.props.setTotalQuantityAndTotal([quantity, total]);
     }
 

@@ -34,41 +34,6 @@ const cartSlice = createSlice({
         localStorage.setItem('cart', JSON.stringify(state.cartData));
       },
 
-      setAttributeChanges: (state, action) => {
-        const { changedProperty, preChangedCartProduct } = action.payload;
-        const selectedAttrIndex = preChangedCartProduct.attributes.findIndex(product => product.id === changedProperty.id);
-
-        if (preChangedCartProduct.attributes[selectedAttrIndex].selected === changedProperty.selected) {
-          return;
-        }
-        state.cartData.forEach((item, index) => {
-          // loop cartData and find pre-changed data location
-          if(item.id === preChangedCartProduct.id && 
-            JSON.stringify(item.attributes) === JSON.stringify(preChangedCartProduct.attributes)) {
-              // creating copy object, representing how changed data should be
-              const temp = JSON.parse(JSON.stringify(state.cartData[index]));
-              temp.attributes[selectedAttrIndex] = changedProperty;
-
-              // finding if copy of temp object already exists
-              const tempCopyIndex = state.cartData.findIndex((item) => item.id === temp.id && 
-                JSON.stringify(item.attributes) === JSON.stringify(temp.attributes))
-
-              // if this kind of object doesn't exist, upgrade it by replacing it with temp
-              if(tempCopyIndex === -1) {
-                state.cartData[index] = temp;
-              } else {
-                // if this kind of object already exists, increase its quantity
-                state.cartData[tempCopyIndex].quantity += state.cartData[index].quantity;
-                state.cartData[index].quantity = 0;
-                state.cartData.splice(index,1)
-              }
-            }
-        });
-        // clear cartData from products with 0 quantity
-        state.cartData = state.cartData.filter(item => item.quantity > 0);
-        localStorage.setItem('cart',JSON.stringify(state.cartData));
-      },
-
       setQuantityChanges: (state, action) => {
 
         const [product, quantity] = action.payload;

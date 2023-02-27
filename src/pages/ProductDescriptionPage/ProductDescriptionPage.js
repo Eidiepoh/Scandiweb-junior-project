@@ -9,7 +9,7 @@ import { setCart, setTotalQuantityAndTotal } from '../../redux/slices/cartSlice'
 
 class ProductDescriptionPage extends React.PureComponent {
 
-    handleData = async (data) => {
+    handleData = (data) => {
         this.props.setCart(data);
     }
 

@@ -6,15 +6,14 @@ import { Link } from 'react-router-dom';
 import ProductCart from '../../ProductCart/ProductCart';
 
 class CartHeader extends React.PureComponent {
+    state = { showCart: false };
+    cartRef = React.createRef();
 
-      state = { showCart: false };
-      cartRef = React.createRef();
-
-      handleClickOutside = event => {
+    handleClickOutside = event => {
         if (this.cartRef.current && !this.cartRef.current.contains(event.target)) {
-          this.setState({ showCart: false });
+            this.setState({ showCart: false });
         }
-      }
+    }
 
     
     componentDidMount() {
@@ -30,6 +29,7 @@ class CartHeader extends React.PureComponent {
           this.setState({ showCart: false });
         }
       }
+      
     render() {
         return(
             <div>
