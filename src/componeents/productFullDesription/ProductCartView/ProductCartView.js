@@ -1,7 +1,7 @@
 import React from 'react';
 import './ProductCartView.css';
 import { connect } from 'react-redux';
-import { setQuantityChanges, setAttributeChanges } from '../../../redux/slices/cartSlice';
+import { setQuantityChanges } from '../../../redux/slices/cartSlice';
 import ProductCartHeader from './ProductCartHeader';
 import ProductPrice from '../../product/ProductPrice/ProductPrice';
 import ProductAttributes from '../ProductAttributes/ProductAttributes';
@@ -89,6 +89,6 @@ const mapStateToProps = state => {
   return state.cart;
 };
 
-const mapDispatchToProps = { setQuantityChanges, setAttributeChanges };
+const mapDispatchToProps = { setQuantityChanges };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductCartView);

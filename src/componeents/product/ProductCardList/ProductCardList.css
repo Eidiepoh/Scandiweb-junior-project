@@ -2,14 +2,13 @@
     position: relative;
     top: 160px;
     display: flex;
-    flex-flow: row wrap;
+    justify-content: center;
 }
 
 .product-card-list {
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
-    gap: 40px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 40px;
     list-style: none;
     position: relative;
 }

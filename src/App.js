@@ -4,7 +4,7 @@ import ProductListPage from './pages/ProductListPage/ProductListPage';
 import ProductDescriptionPage from './pages/ProductDescriptionPage/ProductDescriptionPage';
 import CartPage from './pages/CartPage/CartPage';
 import ErrorComponent from './componeents/ErrorComponent/ErrorComponent';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import './App.css'
 
 class App extends React.PureComponent {

@@ -12,8 +12,7 @@ class ProductListPage extends React.PureComponent {
     return <ProductCardList productType={match.params.name} />;
   }
 
-  renderRedirectToCategory = () => {
-    const { data } = this.props;
+  renderRedirectToCategory = (data) => {
     const categoryName = data.categories[0].name;
     return <Redirect to={`/category/${categoryName}`} />;
   }
@@ -30,7 +29,7 @@ class ProductListPage extends React.PureComponent {
             if (loading) return null;
             if (error) return `Error ${error.message}`;
             if (data) {
-              return this.renderRedirectToCategory();
+              return this.renderRedirectToCategory(data);
             }
           }}
         </Query>
