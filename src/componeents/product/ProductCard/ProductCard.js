@@ -19,8 +19,6 @@ class ProductCard extends React.PureComponent {
     return (
       <li className="product-container-list-item">
         <img
-          width="354px"
-          height="330px"
           src={firstImage}
           alt="product"
         />

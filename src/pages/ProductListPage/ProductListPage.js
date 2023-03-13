@@ -1,5 +1,4 @@
 import React from 'react';
-import './ProductListPage.css';
 import ProductCardList from '../../componeents/product/ProductCardList/ProductCardList';
 import { withRouter } from 'react-router-dom';
 import { Query } from '@apollo/client/react/components';

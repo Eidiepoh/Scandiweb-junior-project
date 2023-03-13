@@ -25,6 +25,12 @@
     padding: 16px;
 }
 
+.product-container-list-item img{
+    width : 354px;
+    height : 330px;
+    object-fit: cover
+}
+
 
 
 .product-container-list-item-description {
